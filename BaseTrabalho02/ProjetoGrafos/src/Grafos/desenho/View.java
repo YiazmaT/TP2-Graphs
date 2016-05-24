@@ -156,7 +156,6 @@ public class View extends javax.swing.JFrame {
                     if (vIni % 2 == 0){
                         e.setSelected(true);                        
                     }
-                    
                     this.graph.addEdge(e);    //desenho
 
                 }  //se tiver peso nas arestas, adicionar mais uma leitura de token

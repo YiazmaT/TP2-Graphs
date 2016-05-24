@@ -7,7 +7,7 @@ package grafos;
 
 import Iterador.IteratorLista;
 import Iterador.IteratorGrafos;
-import arvoreGeradoraMinima.AgmPrim;
+import ÁrvoreGeradoraMinima.AgmPrim;
 import com.sun.org.apache.xalan.internal.xsltc.dom.MultiValuedNodeHeapIterator;
 import grafos.Grafo;
 import java.util.ArrayList;

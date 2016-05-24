@@ -1,5 +1,8 @@
 package grafos;
 
+import DesenharGrafo.Edge;
+import DesenharGrafo.Graph;
+import DesenharGrafo.Vertex;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -40,10 +43,9 @@ public class Utilitarios
     public static Grafo[] leitura(String arquivo)
     {
         Scanner sc;
-        
-        try
-        {
-            sc = new Scanner(new File(arquivo));
+        File f = new File(arquivo);
+        try{
+            sc = new Scanner(f);
             int isDigrafo = sc.nextInt();
             int numVertice = sc.nextInt();
             Grafo[] grafos = new Grafo[2];
@@ -61,9 +63,38 @@ public class Utilitarios
                 grafos[1].inserirAdjacencia(nodeA, nodeB, valor);
             }
             
-            return(grafos);
-            
-            
+            sc.close();
+            return(grafos); 
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Utilitarios.class.getName()).log(Level.SEVERE, null, ex);
+            return(null);
+        }
+    }
+    
+    public static Graph leituraDesenho(String path){
+        Scanner sc;    
+        try{
+            sc = new Scanner(new File(path));
+            int valor = 0;
+            int isDigrafo = sc.nextInt();
+            int numVertice = sc.nextInt();
+
+            Graph graph = new Graph(numVertice, isDigrafo);
+            while(sc.hasNext()){
+                int nodeA = sc.nextInt();
+                int nodeB = sc.nextInt();
+                valor = sc.nextInt();
+                
+                Vertex vS = graph.getVertex().get(nodeA);
+                Vertex vT = graph.getVertex().get(nodeB);
+                Edge e = new Edge(vS, vT, valor);
+                if (nodeA % 2 == 0){
+                        e.setSelected(true);                        
+                }
+                graph.addEdge(e);
+            } 
+            sc.close();
+            return graph;
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Utilitarios.class.getName()).log(Level.SEVERE, null, ex);
             return(null);

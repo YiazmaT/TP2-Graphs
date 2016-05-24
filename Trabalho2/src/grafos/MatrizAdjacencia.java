@@ -7,8 +7,8 @@ package grafos;
 
 import Iterador.IteratorMatriz;
 import Iterador.IteratorGrafos;
-import arvoreGeradoraMinima.AgmKruskal;
-import arvoreGeradoraMinima.AgmPrim;
+import ÁrvoreGeradoraMinima.AgmKruskal;
+import ÁrvoreGeradoraMinima.AgmPrim;
 import grafos.Grafo;
 import java.util.ArrayList;
 import java.util.Iterator;

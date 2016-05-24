@@ -5,25 +5,36 @@
  */
 package Trabalho2;
 
-import functions.ArvoreGeradoraMinima;
-import functions.BuscaEmLargura;
+import DesenharGrafo.Graph;
+import DesenharGrafo.Vertex;
+import Interface.ArvoreGeradoraMinima;
+import Interface.BuscaEmLargura;
 import notUsed.BuscaEmProfundidade;
 import notUsed.CaminhoEntreDoisVertices;
-import functions.CaminhoMinimoEntreVertices;
-import functions.VerificarSeUmGrafoEConexo;
+import Interface.CaminhoMinimoEntreVertices;
+import Interface.VerificarSeUmGrafoEConexo;
 import grafos.Grafo;
 import grafos.ListaAdjacencia;
 import grafos.MatrizAdjacencia;
 import grafos.Utilitarios;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Desktop;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -36,8 +47,12 @@ import javax.swing.filechooser.FileFilter;
 public class Main extends javax.swing.JFrame {
     private int status;
     
+    private static Graph desenho;
+    
     public static ListaAdjacencia lista;
     public static MatrizAdjacencia matriz;
+    private ViewPanel view;
+    private BufferedImage imageBuffer;
 
     public int getStatus() {
         return status;
@@ -312,6 +327,10 @@ public class Main extends javax.swing.JFrame {
         jPanel1.add(new Start(this.status));
         jPanel1.revalidate();
         jPanel1.repaint();
+        
+        //desenho:
+        this.desenho = Utilitarios.leituraDesenho(diretorio);
+        this.view.setGraph(desenho);
     }
     
     //apartir de agora a string diretorio possui o diretorio do arquivo
@@ -398,6 +417,7 @@ public class Main extends javax.swing.JFrame {
         });
     }
 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
@@ -421,4 +441,154 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem loadFile;
     // End of variables declaration//GEN-END:variables
+    
+    public class ViewPanel extends JPanel {
+
+        public ViewPanel() {
+            this.setBackground(java.awt.Color.WHITE);
+            this.setLayout(new FlowLayout(FlowLayout.LEFT));
+        }
+
+        @Override
+        public void paintComponent(java.awt.Graphics g) {
+            super.paintComponent(g);
+
+            java.awt.Graphics2D g2 = (java.awt.Graphics2D) g;
+            ////configuração do rendering para obeter melhor qualidade
+            g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            g2.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
+            g2.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+            g2.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
+
+            if (desenho != null && this.imageBuffer == null) {
+                this.imageBuffer = new BufferedImage(desenho.getSize().width + 1,
+                        desenho.getSize().height + 1, BufferedImage.TYPE_INT_RGB);
+
+                java.awt.Graphics2D g2Buffer = this.imageBuffer.createGraphics();
+                g2Buffer.setColor(this.getBackground());
+                g2Buffer.fillRect(0, 0, desenho.getSize().width + 1, desenho.getSize().height + 1);
+
+                g2Buffer.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+                desenho.draw(g2Buffer);
+                g2Buffer.dispose();
+            }
+
+            if (this.imageBuffer != null) {
+                g2.drawImage(this.imageBuffer, 0, 0, null);
+            }
+        }
+
+        public void setGraph(Graph graph) {
+            if (graph != null) {
+                this.setPreferredSize(new Dimension(graph.getSize().width * 2,
+                        graph.getSize().height * 2));
+                this.setSize(new Dimension(graph.getSize().width * 2,
+                        graph.getSize().height * 2));
+
+                this.cleanImage();
+                this.repaint();
+            }
+        }
+
+        public Vertex getMarkedVertex() {
+            return markedVertex;
+        }
+
+        public void cleanImage() {
+            this.imageBuffer = null;
+        }
+
+        public void adjustPanel() {
+            float iniX = desenho.getVertex().get(0).getX();
+            float iniY = desenho.getVertex().get(0).getY();
+            float max_x = iniX, max_y = iniX;
+            float min_x = iniY, min_y = iniY;
+            int zero = desenho.getVertex().get(0).getRay() * 5 + 10;
+
+            for (int i = 1; i < desenho.getVertex().size(); i++) {
+                float x = desenho.getVertex().get(i).getX();
+                if (max_x < x) {
+                    max_x = x;
+                } else if (min_x > x) {
+                    min_x = x;
+                }
+
+                float y = desenho.getVertex().get(i).getY();
+                if (max_y < y) {
+                    max_y = y;
+                } else if (min_y > y) {
+                    min_y = y;
+                }
+            }
+
+            for (Vertex v : desenho.getVertex()) {
+                v.setX(v.getX() + zero - min_x);
+                v.setY(v.getY() + zero - min_y);
+            }
+
+            Dimension d = this.getSize();
+            d.width = (int) max_x + zero;
+            d.height = (int) max_y + zero;
+            this.setSize(d);
+            this.setPreferredSize(d);
+        }
+
+        public void markVertices(ArrayList<Vertex> vertices) {
+            if (vertices != null) {
+                this.cleanMarkedVertices(false);
+
+                //change the vertices' colors
+                for (Vertex v : vertices) {
+                    v.setSelected(true);
+                }
+
+                this.cleanImage();
+                this.repaint();
+            }
+        }
+
+        public void cleanMarkedVertices(boolean cleanVertex) {
+            if (desenho != null) {
+                this.markedVertex = null;
+
+                for (Vertex vertex : desenho.getVertex()) {
+                    vertex.setSelected(false);
+
+                }
+            }
+
+            this.cleanImage();
+            this.repaint();
+        }
+
+        @Override
+        public void setFont(java.awt.Font font) {
+            //
+        }
+
+        @Override
+        public java.awt.Font getFont() {
+            return null;// colocar alguma fonte
+        }
+
+        @Override
+        public void setBackground(Color bg) {
+            super.setBackground(bg);
+
+        }
+        private java.awt.Color color = java.awt.Color.RED;
+        //Used to color based on a document
+        private Vertex markedVertex;
+        //Used to move the points
+        private Vertex selectedVertex;
+        //contain the selected vertices which will be moved
+        private ArrayList<Vertex> selectedVertices;
+        //The image which will be drawn as a graph
+        private BufferedImage imageBuffer;
+    }
 }
+
+
