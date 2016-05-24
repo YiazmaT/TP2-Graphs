@@ -6,7 +6,7 @@
 package functions;
 
 import Buscas.BuscaLargura;
-import Trabalho1.Main;
+import Trabalho2.Main;
 import grafos.Grafo;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;

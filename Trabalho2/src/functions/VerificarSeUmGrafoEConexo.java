@@ -6,7 +6,7 @@
 package functions;
 
 import Buscas.BuscaProfundidade;
-import Trabalho1.Main;
+import Trabalho2.Main;
 import grafos.Grafo;
 import java.awt.Color;
 import javax.swing.JOptionPane;

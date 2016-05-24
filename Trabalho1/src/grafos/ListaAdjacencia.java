@@ -119,7 +119,7 @@ public class ListaAdjacencia extends Grafo{
                 valorAresta = iterador.valor();
                 verticeAdjacente = iterador.next();
             
-                if(i < verticeAdjacente && !orientado)break;
+                //if(i < verticeAdjacente && !orientado)break;
                 arestas.add(new Aresta(i,verticeAdjacente,valorAresta));
                 
             }

@@ -6,7 +6,7 @@
 package notUsed;
 
 import Buscas.BuscaProfundidade;
-import Trabalho1.Main;
+import Trabalho2.Main;
 import grafos.Grafo;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;

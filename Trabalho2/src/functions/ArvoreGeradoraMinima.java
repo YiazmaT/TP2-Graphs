@@ -7,7 +7,7 @@ package functions;
 
 import arvoreGeradoraMinima.AgmKruskal;
 import arvoreGeradoraMinima.AgmPrim;
-import Trabalho1.Main;
+import Trabalho2.Main;
 import grafos.Grafo;
 import grafos.MatrizAdjacencia;
 import javax.swing.JFrame;

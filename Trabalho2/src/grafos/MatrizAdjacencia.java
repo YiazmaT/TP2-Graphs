@@ -46,7 +46,7 @@ public class MatrizAdjacencia extends Grafo {
         possuiAdjacencia[nodeA][nodeB] = true;
         if(!orientado){
             matriz[nodeB][nodeA] = valor;
-            possuiAdjacencia[nodeA][nodeB] = true;
+            possuiAdjacencia[nodeB][nodeA] = true;
         }
         
         return true;
@@ -108,9 +108,8 @@ public class MatrizAdjacencia extends Grafo {
        PriorityQueue<Aresta> arestas = new PriorityQueue<Aresta>();
        int j; 
        for(int i=0;i<numVertices;i++){
-           if(this.orientado == true)j = 0;
-           else j = i;
-           for(;j<numVertices;j++){
+          
+           for(j=0;j<numVertices;j++){
                 if(possuiAdjacencia[i][j] == true){
                     arestas.add(new Aresta(i,j,this.matriz[i][j]));
                 }

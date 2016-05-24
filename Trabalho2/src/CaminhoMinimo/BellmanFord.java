@@ -52,7 +52,7 @@ public class BellmanFord {
         PriorityQueue<Aresta> arestas = representacao.getArestas();
         raizBusca = raiz;
         inicializa(raiz);
-        for(int i=0;i<arestas.size()-1;i++){
+        for(int i=0;i<representacao.getNumVertices()-1;i++){
             for(Aresta arestaAtual : arestas){
                 relaxa(arestaAtual.getNodeA(),arestaAtual.getNodeB(),arestaAtual.getValor());
             }
