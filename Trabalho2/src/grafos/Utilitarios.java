@@ -71,33 +71,6 @@ public class Utilitarios
         }
     }
     
-    public static Graph leituraDesenho(String path){
-        Scanner sc;    
-        try{
-            sc = new Scanner(new File(path));
-            int valor = 0;
-            int isDigrafo = sc.nextInt();
-            int numVertice = sc.nextInt();
-
-            Graph graph = new Graph(numVertice, isDigrafo);
-            while(sc.hasNext()){
-                int nodeA = sc.nextInt();
-                int nodeB = sc.nextInt();
-                valor = sc.nextInt();
-                
-                Vertex vS = graph.getVertex().get(nodeA);
-                Vertex vT = graph.getVertex().get(nodeB);
-                Edge e = new Edge(vS, vT, valor);
-                if (nodeA % 2 == 0){
-                        e.setSelected(true);                        
-                }
-                graph.addEdge(e);
-            } 
-            sc.close();
-            return graph;
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Utilitarios.class.getName()).log(Level.SEVERE, null, ex);
-            return(null);
-        }
-    }
+    
+    
 }

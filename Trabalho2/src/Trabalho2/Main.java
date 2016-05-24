@@ -5,6 +5,7 @@
  */
 package Trabalho2;
 
+import DesenharGrafo.Edge;
 import DesenharGrafo.Graph;
 import DesenharGrafo.Vertex;
 import Interface.ArvoreGeradoraMinima;
@@ -13,6 +14,7 @@ import notUsed.BuscaEmProfundidade;
 import notUsed.CaminhoEntreDoisVertices;
 import Interface.CaminhoMinimoEntreVertices;
 import Interface.VerificarSeUmGrafoEConexo;
+import grafos.Aresta;
 import grafos.Grafo;
 import grafos.ListaAdjacencia;
 import grafos.MatrizAdjacencia;
@@ -32,6 +34,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -51,7 +54,7 @@ public class Main extends javax.swing.JFrame {
     
     public static ListaAdjacencia lista;
     public static MatrizAdjacencia matriz;
-    private ViewPanel view;
+    public  ViewPanel view;
     private BufferedImage imageBuffer;
 
     public int getStatus() {
@@ -73,10 +76,12 @@ public class Main extends javax.swing.JFrame {
      */
   
     public Main() {
-        initComponents();
-        this.setVisible(true);
-        status=0;
+        view = new ViewPanel();
         
+        this.setVisible(true);
+        
+        status=0;
+        initComponents();
         jPanel1.removeAll();
         jPanel1.add(new Start(this.status));
         jPanel1.revalidate();
@@ -86,7 +91,6 @@ public class Main extends javax.swing.JFrame {
         jPanel1.setLayout(new GridLayout(1, 1));
         
         this.setLocationRelativeTo(null);
-        
         try{
             Image icon = Toolkit.getDefaultToolkit().getImage("src/gui/images/mainicon.png");
             setIconImage(icon);
@@ -114,7 +118,7 @@ public class Main extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane1 = new javax.swing.JScrollPane(this.view);
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu4 = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
@@ -329,7 +333,7 @@ public class Main extends javax.swing.JFrame {
         jPanel1.repaint();
         
         //desenho:
-        this.desenho = Utilitarios.leituraDesenho(diretorio);
+        this.desenho = leituraDesenho();
         this.view.setGraph(desenho);
     }
     
@@ -337,6 +341,20 @@ public class Main extends javax.swing.JFrame {
     
     }//GEN-LAST:event_loadFileActionPerformed
 
+    private Graph leituraDesenho(){
+       Graph grafoDesenho;
+       grafoDesenho = new Graph(lista.getNumVertices(),lista.isOrientado());
+       PriorityQueue<Aresta> arestas = lista.getArestas();
+       
+       for(Aresta a : arestas){
+            Vertex vS = grafoDesenho.getVertex().get(a.getNodeA());
+            Vertex vT = grafoDesenho.getVertex().get(a.getNodeB());
+            Edge e = new Edge(vS, vT, a.getValor());
+                
+            grafoDesenho.addEdge(e);
+       }
+       return grafoDesenho;
+    }
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         jPanel1.removeAll();
         jPanel1.add(new BuscaEmLargura(this));

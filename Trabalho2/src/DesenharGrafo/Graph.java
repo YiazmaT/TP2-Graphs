@@ -13,13 +13,13 @@ import java.util.ArrayList;
  * @author Danilo Medeiros Eler
  */
 public class Graph {
-    private int isDigrafo;
+    private boolean isDigrafo;
 
-    public int getIsDigrafo() {
+    public boolean getIsDigrafo() {
         return isDigrafo;
     }
     
-    public Graph(int nVert, int isDigrafo) {
+    public Graph(int nVert, boolean isDigrafo) {
         this.isDigrafo = isDigrafo;
         RainbowScale cS = new RainbowScale();
         //GrayScale cS = new GrayScale();
