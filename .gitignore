@@ -52,4 +52,6 @@ Temporary Items
 !*.java
 !*.properties
 !*.xml
+!*.form
 !*.png
+

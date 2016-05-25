@@ -19,6 +19,8 @@ import Interface.ComponentesConexas;
 import Interface.Coloracao;
 import Interface.ComponentesConexas;
 import Interface.Conectividade;
+import Interface.OrdemTopologica;
+import Interface.Transposicao;
 import grafos.Aresta;
 import grafos.Grafo;
 import grafos.ListaAdjacencia;
@@ -137,6 +139,8 @@ public class Main extends javax.swing.JFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
 
         jMenu5.setText("File");
@@ -147,6 +151,7 @@ public class Main extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Trabalho Prático de Grafos II");
+        setResizable(false);
         addWindowStateListener(new java.awt.event.WindowStateListener() {
             public void windowStateChanged(java.awt.event.WindowEvent evt) {
                 formWindowStateChanged(evt);
@@ -250,7 +255,7 @@ public class Main extends javax.swing.JFrame {
         jMenu2.add(jMenuItem2);
 
         jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/connection.png"))); // NOI18N
-        jMenuItem4.setText("Componentes Conexas (Grafos)");
+        jMenuItem4.setText("Componentes Conexas");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);
@@ -286,13 +291,31 @@ public class Main extends javax.swing.JFrame {
         jMenu2.add(jMenuItem1);
 
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/conectivityRed.png"))); // NOI18N
-        jMenuItem3.setText("Conectividade (Dígrafo)");
+        jMenuItem3.setText("Conectividade");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
             }
         });
         jMenu2.add(jMenuItem3);
+
+        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/double-arrowRed.png"))); // NOI18N
+        jMenuItem7.setText("Transposição");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem7);
+
+        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/nextRed.png"))); // NOI18N
+        jMenuItem8.setText("Ordem Topológica");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem8);
 
         jMenuBar1.add(jMenu2);
 
@@ -474,6 +497,20 @@ public class Main extends javax.swing.JFrame {
         jPanel1.repaint();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        jPanel1.removeAll();
+        jPanel1.add(new Transposicao(this));
+        jPanel1.revalidate();
+        jPanel1.repaint();
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        jPanel1.removeAll();
+        jPanel1.add(new OrdemTopologica(this));
+        jPanel1.revalidate();
+        jPanel1.repaint();
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -528,6 +565,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JRadioButton jRadioButton1;
