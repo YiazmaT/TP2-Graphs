@@ -46,3 +46,10 @@ Network Trash Folder
 Temporary Items
 .apdisk
 /Trabalho2/dist/
+
+#ignorar todos os arquivos que não sejam fonte, ou imagens 
+*.*
+!*.java
+!*.properties
+!*.xml
+!*.png
