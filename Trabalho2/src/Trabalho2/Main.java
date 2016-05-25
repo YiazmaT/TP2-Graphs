@@ -5,6 +5,8 @@
  */
 package Trabalho2;
 
+import Buscas.BuscaProfundidade;
+import ColorScale.RainbowScale;
 import DesenharGrafo.Edge;
 import DesenharGrafo.Graph;
 import DesenharGrafo.Vertex;
@@ -13,7 +15,7 @@ import Interface.BuscaEmLargura;
 import notUsed.BuscaEmProfundidade;
 import notUsed.CaminhoEntreDoisVertices;
 import Interface.CaminhoMinimoEntreVertices;
-import Interface.VerificarSeUmGrafoEConexo;
+import Interface.ComponentesConexas;
 import grafos.Aresta;
 import grafos.Grafo;
 import grafos.ListaAdjacencia;
@@ -241,7 +243,7 @@ public class Main extends javax.swing.JFrame {
         jMenu2.add(jMenuItem2);
 
         jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/connection.png"))); // NOI18N
-        jMenuItem4.setText("Verificar se Um Grafo é Conexo");
+        jMenuItem4.setText("Componentes Conexas");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);
@@ -391,7 +393,7 @@ public class Main extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         jPanel1.removeAll();
-        jPanel1.add(new VerificarSeUmGrafoEConexo(this));
+        jPanel1.add(new ComponentesConexas(this));
         jPanel1.revalidate();
         jPanel1.repaint();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
@@ -492,6 +494,30 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem loadFile;
     // End of variables declaration//GEN-END:variables
+    
+    public void componentesConexas(){
+        Grafo grafo;
+        int componentes[];
+        
+        if(isMatrizSelected()) grafo = matriz;
+        else grafo = lista;
+        
+        
+        
+        BuscaProfundidade busca = new BuscaProfundidade(grafo);
+        busca.buscaProfundidade(0);
+        componentes = busca.getComponentes();
+        
+        int compStep = 255 / componentes.length;
+        RainbowScale rbS = new RainbowScale();
+        
+        for(int i=0;i<componentes.length;i++){
+            desenho.getVertex().get(i).setColor(rbS.getColor(componentes[i] * compStep));
+        }
+        view.cleanImage();
+        view.repaint();
+    }
+    
     
     public class ViewPanel extends JPanel {
 

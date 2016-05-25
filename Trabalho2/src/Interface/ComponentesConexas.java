@@ -15,10 +15,10 @@ import javax.swing.JOptionPane;
  *
  * @author Eymar Lima
  */
-public class VerificarSeUmGrafoEConexo extends javax.swing.JPanel {
+public class ComponentesConexas extends javax.swing.JPanel {
     
     Main pai;
-    public VerificarSeUmGrafoEConexo(Main pai) {
+    public ComponentesConexas(Main pai) {
         initComponents();
         this.pai = pai;
     }
@@ -37,7 +37,7 @@ public class VerificarSeUmGrafoEConexo extends javax.swing.JPanel {
 
         jMenu1.setText("jMenu1");
 
-        setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Verificar se Um Grafo é Conexo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
+        setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Componentes Conexas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/connectionBlack.png"))); // NOI18N
@@ -65,31 +65,7 @@ public class VerificarSeUmGrafoEConexo extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Grafo grafo;
-       if(pai.isMatrizSelected()) grafo = Main.matriz;
-       else grafo = Main.lista;
-       
-       if(grafo.isOrientado() == true){
-           JOptionPane.showMessageDialog(null, "O grafo carregado é orientado!");
-           return;
-       }
-       
-       BuscaProfundidade busca = new BuscaProfundidade(grafo);
-       busca.buscaProfundidade(0);
-       
-       if(grafo == null){
-           JOptionPane.showMessageDialog(null, "Nenhum grafo foi carregado!");
-           return;
-       }
-       /*
-       if(busca.grafoConexo()) jTextArea1.setText("O grafo é conexo !!");
-       else
-       {
-           jTextArea1.setText("O grafo não é conexo !!");
-           int[] componentes = busca.getComponentes();
-           for(int i = 0; i < grafo.getNumVertices(); i++)
-               jTextArea1.append("\nO vertice " + i + " pertence ao componente " + componentes[i]);
-       }*/
+       pai.componentesConexas();
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

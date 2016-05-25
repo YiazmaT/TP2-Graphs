@@ -76,7 +76,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/images/connection.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Verificar se Um Grafo &#xe9; Conexo"/>
+                <Property name="text" type="java.lang.String" value="Componentes Conexas"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem4ActionPerformed"/>

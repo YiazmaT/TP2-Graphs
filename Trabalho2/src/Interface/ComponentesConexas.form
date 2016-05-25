@@ -15,7 +15,7 @@
   <Properties>
     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-        <TitledBorder title="Verificar se Um Grafo &#xe9; Conexo">
+        <TitledBorder title="Componentes Conexas">
           <Font PropertyName="font" name="Tahoma" size="14" style="0"/>
         </TitledBorder>
       </Border>
