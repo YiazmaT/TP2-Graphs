@@ -46,6 +46,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileFilter;
+import ÁrvoreGeradoraMinima.AgmKruskal;
+import ÁrvoreGeradoraMinima.AgmPrim;
 
 /**
  *
@@ -378,7 +380,7 @@ public class Main extends javax.swing.JFrame {
        for(Aresta a : arestas){
             Vertex vS = grafoDesenho.getVertex().get(a.getNodeA());
             Vertex vT = grafoDesenho.getVertex().get(a.getNodeB());
-            Edge e = new Edge(vS, vT, a.getValor());
+            Edge e = new Edge(vS, vT, a.getValor(), lista.isOrientado());
                 
             grafoDesenho.addEdge(e);
        }
@@ -532,12 +534,38 @@ public class Main extends javax.swing.JFrame {
         RainbowScale rbS = new RainbowScale();
         
         for(int i=0;i<componentes.length;i++){
-            desenho.getVertex().get(i).setColor(rbS.getColor(componentes[i] * compStep));
+            desenho.getVertex().get(i).setColor(rbS.getColor((componentes[i]-1) * compStep));
         }
         view.cleanImage();
         view.repaint();
     }
     
+    public void arvoreGeradoraMinima(boolean isKruskal, int verticeInicial){
+        Grafo grafo;
+        Grafo resultado;
+        if(isMatrizSelected()) grafo = matriz;
+        else grafo = lista;
+        
+        if(isKruskal){
+            AgmKruskal kruskal = new AgmKruskal(grafo.getNumVertices(),grafo);
+            resultado = kruskal.AGM();
+        }else{
+            AgmPrim prim = new AgmPrim(grafo.getNumVertices(),grafo);
+            resultado = prim.AGM(verticeInicial);
+        }
+        
+        PriorityQueue<Aresta> arestas = resultado.getArestas();
+        
+        for(Aresta a : arestas){
+            int nodeA,nodeB;
+            nodeA = a.getNodeA();
+            nodeB = a.getNodeB();
+            
+            desenho.setEdgeAsSelected(nodeA, nodeB);
+        }
+        view.cleanImage();
+        view.repaint();
+    }
     
     public class ViewPanel extends JPanel {
 

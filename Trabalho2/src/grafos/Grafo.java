@@ -40,7 +40,6 @@ public abstract class Grafo{
     public abstract boolean inserirAdjacencia(int nodeA, int nodeB,int valor);
     public abstract boolean isAdjacente(int nodeA, int nodeB);
     public abstract void imprimir();
-    public abstract Grafo arvoreGeradoraMinima();
     public abstract PriorityQueue<Aresta> getArestas();
     public abstract int getPesoAresta(int nodeA, int nodeB);
     

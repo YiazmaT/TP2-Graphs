@@ -101,11 +101,7 @@ public class ListaAdjacencia extends Grafo{
         return new IteratorLista(vertices[vertice].getProx());
     }
 
-    @Override
-    public Grafo arvoreGeradoraMinima() {
-        AgmPrim prim = new AgmPrim(numVertices,this);
-        return prim.AGM();
-    }
+ 
 
     @Override
     public PriorityQueue<Aresta> getArestas() {

@@ -98,27 +98,11 @@ public class ArvoreGeradoraMinima extends javax.swing.JPanel {
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       Grafo grafo;
-       if(pai.isMatrizSelected()) grafo = Main.matriz;
-       else grafo = Main.lista;
-       
-       if(grafo == null){
-           JOptionPane.showMessageDialog(null, "Nenhum grafo foi carregado!");
-           return;
-       }
-       
-       if(jRadioButton1.isSelected())
-       {
-           AgmPrim prim = new AgmPrim(grafo.getNumVertices(), grafo);
-           grafo = prim.AGM();
-       }
-       else
-       {
-           AgmKruskal kruskal = new AgmKruskal(grafo.getNumVertices(), grafo);
-           grafo = kruskal.AGM();
-       }
-       
-       //jTextArea1.setText(grafo.getTextoGrafo());
+        if(jRadioButton1.isSelected() == true){
+            pai.arvoreGeradoraMinima(false, 0);
+        }else{
+            pai.arvoreGeradoraMinima(true, 0);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

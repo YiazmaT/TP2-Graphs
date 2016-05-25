@@ -22,10 +22,11 @@ public class Edge {
     private Boolean selected = false; //se a aresta está selecionada
     private int peso=0;
     
-    public Edge(Vertex source, Vertex target, int peso) {
+    public Edge(Vertex source, Vertex target, int peso, boolean directed) {
         this.source = source;
         this.target = target;
         this.peso = peso;
+        this.directed = directed;
     }
 
     public void draw(java.awt.Graphics2D g2) {
@@ -33,7 +34,7 @@ public class Edge {
 
         if (selected) {
             g2.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_OVER, 1.0f));
-            g2.setStroke(new java.awt.BasicStroke(3.0f));            
+            g2.setStroke(new java.awt.BasicStroke(5.0f));            
         } else {
             g2.setStroke(new java.awt.BasicStroke(1.0f));
             if ((this.target.isSelected() && this.source.isSelected())) { //se os vertices estao selecionados
@@ -42,7 +43,6 @@ public class Edge {
                 g2.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_OVER, 0.2f));
             }
         }
-
         this.color = new Color((this.source.getColor().getRed() + this.target.getColor().getRed()) / 2,
                 (this.source.getColor().getGreen() + this.target.getColor().getGreen()) / 2,
                 (this.source.getColor().getBlue() + this.target.getColor().getBlue()) / 2);
@@ -57,16 +57,32 @@ public class Edge {
 //            drawArrow(g2, new Point((int) source.getX(), (int) source.getY()),
 //                    new Point((int) target.getX(), (int) target.getY()),
 //                    6.0f);
-            
+        if(!selected){
+            g2.setStroke(new java.awt.BasicStroke(1.0f));    
             drawArrowNew(g2, new Point((int) source.getX(), (int) source.getY()),
                     new Point((int) target.getX(), (int) target.getY()),
                     6, 14);
+        }else{
+            g2.setStroke(new java.awt.BasicStroke(4.0f));    
+            drawArrowNew(g2, new Point((int) source.getX(), (int) source.getY()),
+                    new Point((int) target.getX(), (int) target.getY()),
+                    6, 14);
+        }
         }
 
 
         g2.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_OVER, 1.0f));
     }
     
+    public int getSourceID(){
+        return source.getID();
+    }
+    
+    public int getTargetID(){
+        return target.getID();
+    }
+    
+ 
     private void drawArrowNew(Graphics2D g2, Point s, Point t, int size, int deslocamento) {
         float r = (float) Math.sqrt(Math.pow(s.x - t.x, 2) + Math.pow(s.y - t.y, 2));
         float cos = (t.x - s.x) / r;

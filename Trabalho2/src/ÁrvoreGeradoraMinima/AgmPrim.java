@@ -70,7 +70,7 @@ public class AgmPrim {
     }
     
     //Retorna um grafo representado por lista de adjacencia
-    public Grafo AGM(){
+    public Grafo AGM(int raiz){
         
         Grafo arvoreGeradora = new ListaAdjacencia(numVertice,false);
         IteratorGrafos iterador;
@@ -81,7 +81,7 @@ public class AgmPrim {
             Q[i] = PERTENCE;
             chave[i] = Integer.MAX_VALUE;
         }
-        chave[0] = 0;
+        chave[raiz] = 0;
         
         while(!Qvazio()){
             verticeAtual = minimoQ();

@@ -97,12 +97,7 @@ public class MatrizAdjacencia extends Grafo {
         return new IteratorMatriz(matriz[vertice],possuiAdjacencia[vertice]);
     }
 
-    @Override
-    public Grafo arvoreGeradoraMinima() {
-        AgmKruskal kruskal = new AgmKruskal(numVertices,this);
-        return kruskal.AGM();
-    }
-
+   
     @Override
     public PriorityQueue<Aresta> getArestas() {
        PriorityQueue<Aresta> arestas = new PriorityQueue<Aresta>();
