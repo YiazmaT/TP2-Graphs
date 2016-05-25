@@ -13,6 +13,7 @@ import Interface.BuscaEmLargura;
 import notUsed.BuscaEmProfundidade;
 import notUsed.CaminhoEntreDoisVertices;
 import Interface.CaminhoMinimoEntreVertices;
+import Interface.Coloracao;
 import Interface.VerificarSeUmGrafoEConexo;
 import grafos.Aresta;
 import grafos.Grafo;
@@ -128,6 +129,7 @@ public class Main extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
 
         jMenu5.setText("File");
@@ -266,6 +268,15 @@ public class Main extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItem6);
+
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/redColorWheel.png"))); // NOI18N
+        jMenuItem1.setText("Coloração");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem1);
 
         jMenuBar1.add(jMenu2);
 
@@ -433,6 +444,13 @@ public class Main extends javax.swing.JFrame {
         s.setVisible(true);
     }//GEN-LAST:event_jMenu3MouseClicked
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        jPanel1.removeAll();
+        jPanel1.add(new Coloracao(this));
+        jPanel1.revalidate();
+        jPanel1.repaint();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -481,6 +499,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;

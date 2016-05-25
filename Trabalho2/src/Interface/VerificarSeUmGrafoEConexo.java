@@ -58,9 +58,7 @@ public class VerificarSeUmGrafoEConexo extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jButton1)
-                .addGap(0, 11, Short.MAX_VALUE))
+            .addComponent(jButton1)
         );
     }// </editor-fold>//GEN-END:initComponents
 
