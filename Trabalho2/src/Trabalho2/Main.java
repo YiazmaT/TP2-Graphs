@@ -15,12 +15,9 @@ import Interface.BuscaEmLargura;
 import notUsed.BuscaEmProfundidade;
 import notUsed.CaminhoEntreDoisVertices;
 import Interface.CaminhoMinimoEntreVertices;
-<<<<<<< HEAD
 import Interface.ComponentesConexas;
-=======
 import Interface.Coloracao;
-import Interface.VerificarSeUmGrafoEConexo;
->>>>>>> 897e045ac1ac2915485b6ad3371e1871e817aa31
+import Interface.ComponentesConexas;
 import grafos.Aresta;
 import grafos.Grafo;
 import grafos.ListaAdjacencia;
