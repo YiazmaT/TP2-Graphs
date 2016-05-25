@@ -137,7 +137,7 @@ public class Main extends javax.swing.JFrame {
         jMenuBar2.add(jMenu6);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Trabalho Prático de Grafos I");
+        setTitle("Trabalho Prático de Grafos II");
         addWindowStateListener(new java.awt.event.WindowStateListener() {
             public void windowStateChanged(java.awt.event.WindowEvent evt) {
                 formWindowStateChanged(evt);
@@ -157,7 +157,7 @@ public class Main extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 127, Short.MAX_VALUE)
+            .addGap(0, 138, Short.MAX_VALUE)
         );
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -212,6 +212,11 @@ public class Main extends javax.swing.JFrame {
         jMenuBar1.add(jMenu4);
 
         jMenu1.setText("Arquivo");
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
 
         loadFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/loadFile.png"))); // NOI18N
         loadFile.setText("Carregar");
@@ -265,6 +270,16 @@ public class Main extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Sobre");
+        jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu3MouseClicked(evt);
+            }
+        });
+        jMenu3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu3ActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
@@ -334,7 +349,7 @@ public class Main extends javax.swing.JFrame {
         
         //desenho:
         this.desenho = leituraDesenho();
-        this.view.setGraph(desenho);
+        this.print();
     }
     
     //apartir de agora a string diretorio possui o diretorio do arquivo
@@ -355,6 +370,11 @@ public class Main extends javax.swing.JFrame {
        }
        return grafoDesenho;
     }
+    
+    public void print(){
+        this.view.setGraph(desenho);
+    }
+    
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         jPanel1.removeAll();
         jPanel1.add(new BuscaEmLargura(this));
@@ -399,6 +419,19 @@ public class Main extends javax.swing.JFrame {
         jRadioButton1.setSelected(false);
         jRadioButton2.setSelected(true);
     }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
+        
+    }//GEN-LAST:event_jMenu3ActionPerformed
+
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
+        Sobre s = new Sobre(this, true);
+        s.setVisible(true);
+    }//GEN-LAST:event_jMenu3MouseClicked
 
     /**
      * @param args the command line arguments

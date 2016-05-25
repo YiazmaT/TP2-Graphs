@@ -10,8 +10,7 @@ import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Utilitarios
-{
+public class Utilitarios{
     public static String getCaminho(int indexVertex,int pai[],int raizBusca)
     {
         String caminho = new String("");
