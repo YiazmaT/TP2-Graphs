@@ -60,7 +60,7 @@ public class Main extends javax.swing.JFrame {
     private int status;
     
     private static Graph desenho;
-    
+    private int isDigraph = 0;
     public static ListaAdjacencia lista;
     public static MatrizAdjacencia matriz;
     public  ViewPanel view;
@@ -92,7 +92,7 @@ public class Main extends javax.swing.JFrame {
         status=0;
         initComponents();
         jPanel1.removeAll();
-        jPanel1.add(new Start(this.status));
+        jPanel1.add(new Start(this.status, isDigraph));
         jPanel1.revalidate();
         jPanel1.repaint();
         
@@ -392,14 +392,18 @@ public class Main extends javax.swing.JFrame {
         lista = (ListaAdjacencia) grafos[0];
         matriz = (MatrizAdjacencia) grafos[1];
         
-        jPanel1.removeAll();
-        jPanel1.add(new Start(this.status));
-        jPanel1.revalidate();
-        jPanel1.repaint();
+        
         
         //desenho:
         this.desenho = leituraDesenho();
         this.print();
+        if(desenho.getIsDigrafo() == true) isDigraph = 1;
+        else isDigraph = 0;
+        
+        jPanel1.removeAll();
+        jPanel1.add(new Start(this.status, isDigraph));
+        jPanel1.revalidate();
+        jPanel1.repaint();
     }
     
     //apartir de agora a string diretorio possui o diretorio do arquivo
@@ -434,7 +438,7 @@ public class Main extends javax.swing.JFrame {
 
     private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
         jPanel1.removeAll();
-        jPanel1.add(new Start(this.status));
+        jPanel1.add(new Start(this.status, this.isDigraph));
         jPanel1.revalidate();
         jPanel1.repaint();
     }//GEN-LAST:event_jMenu4MouseClicked
