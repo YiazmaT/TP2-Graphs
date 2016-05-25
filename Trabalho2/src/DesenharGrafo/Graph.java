@@ -111,6 +111,17 @@ public class Graph {
             return new java.awt.Dimension(0, 0);
         }
     }
+    
+    public void setEdgeAsSelected(int nodeA, int nodeB){
+        for(Edge e : edges){
+            if(e.getSourceID() == nodeA && e.getTargetID() == nodeB){
+                e.setSelected(true);
+            }
+        }
+    }
+    
     protected ArrayList<Vertex> vertex = new ArrayList<Vertex>();
     protected ArrayList<Edge> edges = new ArrayList<Edge>();
+    
+    
 }
