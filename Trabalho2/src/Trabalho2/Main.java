@@ -18,6 +18,7 @@ import Interface.CaminhoMinimoEntreVertices;
 import Interface.ComponentesConexas;
 import Interface.Coloracao;
 import Interface.ComponentesConexas;
+import Interface.Conectividade;
 import grafos.Aresta;
 import grafos.Grafo;
 import grafos.ListaAdjacencia;
@@ -133,6 +134,7 @@ public class Main extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
 
         jMenu5.setText("File");
@@ -246,7 +248,7 @@ public class Main extends javax.swing.JFrame {
         jMenu2.add(jMenuItem2);
 
         jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/connection.png"))); // NOI18N
-        jMenuItem4.setText("Componentes Conexas");
+        jMenuItem4.setText("Componentes Conexas (Grafos)");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);
@@ -280,6 +282,15 @@ public class Main extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItem1);
+
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/conectivityRed.png"))); // NOI18N
+        jMenuItem3.setText("Conectividade (Dígrafo)");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem3);
 
         jMenuBar1.add(jMenu2);
 
@@ -454,6 +465,13 @@ public class Main extends javax.swing.JFrame {
         jPanel1.repaint();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        jPanel1.removeAll();
+        jPanel1.add(new Conectividade(this));
+        jPanel1.revalidate();
+        jPanel1.repaint();
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -504,6 +522,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
