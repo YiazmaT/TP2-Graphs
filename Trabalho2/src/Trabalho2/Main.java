@@ -42,6 +42,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
+import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -408,7 +409,7 @@ public class Main extends javax.swing.JFrame {
 
     private Graph leituraDesenho(){
        Graph grafoDesenho;
-       grafoDesenho = new Graph(lista.getNumVertices(),lista.isOrientado());
+       grafoDesenho = new Graph(lista.getNumVertices(),lista.isOrientado(),true);
        PriorityQueue<Aresta> arestas = lista.getArestas();
        
        for(Aresta a : arestas){
@@ -574,6 +575,61 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem loadFile;
     // End of variables declaration//GEN-END:variables
+    
+    public void ordemTopologica(int raiz){
+        Grafo grafo;
+        if(isMatrizSelected())grafo = matriz;
+        else grafo = lista;
+        
+        Stack<Integer> ordem;
+        
+        BuscaProfundidade busca = new BuscaProfundidade(grafo);
+        busca.buscaProfundidade(raiz);
+        
+        ordem = busca.getOrdemTopologica();
+        
+        criarDesenhoOrdem(ordem,grafo);
+        
+        
+    }
+    
+    public void criarDesenhoOrdem(Stack<Integer> ordem, Grafo grafo){
+        Graph novoDesenho = new Graph(grafo.getNumVertices(), true,false);
+        float step = 75;
+        Vertex origem, destino;
+        PriorityQueue<Aresta> arestas = grafo.getArestas();
+       
+       int node;
+        for(int i=ordem.size()-1;i>=0;i--){
+           node = ordem.elementAt(i);
+           origem = novoDesenho.getVertex().get(node);
+           origem.setX(step);
+           origem.setY(150);
+           step+=75;
+        }
+        
+        step = 1;  
+        for(Aresta a : arestas){
+            
+            Vertex vS = novoDesenho.getVertex().get(a.getNodeA());
+            Vertex vT = novoDesenho.getVertex().get(a.getNodeB());
+            Edge e = new Edge(vS, vT, a.getValor(), grafo.isOrientado());
+            
+            int source = vS.getID();
+            int target = vT.getID();
+            int sourcePos = ordem.indexOf(vS.getID());
+            int targetPos = ordem.indexOf(vT.getID());
+            if( sourcePos != targetPos + 1){
+                e.setArqueado((int)step);
+                step*=-1;
+            }
+            novoDesenho.addEdge(e);
+       }
+        
+        desenho = novoDesenho;
+        view.setGraph(desenho);
+        view.repaint();
+    }
     
     public void componentesConexas(){
         Grafo grafo;

@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.geom.Arc2D;
 
 /**
  *
@@ -20,6 +21,7 @@ public class Edge {
     private Vertex target; //segundo vertice da aresta
     private Boolean directed = true; //se a aresta é direcionada
     private Boolean selected = false; //se a aresta está selecionada
+    private int arqueado = 0;
     private int peso=0;
     
     public Edge(Vertex source, Vertex target, int peso, boolean directed) {
@@ -27,8 +29,13 @@ public class Edge {
         this.target = target;
         this.peso = peso;
         this.directed = directed;
+        arqueado = 0;
     }
 
+    public void setArqueado(int arqueado){
+        this.arqueado = arqueado;
+    }
+    
     public void draw(java.awt.Graphics2D g2) {
         //Combines the color of the two vertex to paint the edge
 
@@ -49,24 +56,38 @@ public class Edge {
 
         g2.setColor(this.color);
         
-        g2.drawLine(((int) this.source.getX()), ((int) this.source.getY()),
+        int diferenca = (int)(target.getX()-source.getX());
+            
+        if(arqueado == 0){
+           g2.drawLine(((int) this.source.getX()), ((int) this.source.getY()),
                 ((int) this.target.getX()), ((int) this.target.getY()));
-        g2.setStroke(new java.awt.BasicStroke(1.0f));
-
+           
+        }else{
+            if(arqueado == 1){     
+                g2.drawArc((int)source.getX(), (int)source.getY() - 75/2, 
+                        diferenca,
+                        75,0, 180);
+            }else{
+                g2.drawArc((int)source.getX(), (int)source.getY()-75/2, 
+                        diferenca,
+                        75,0, -180);
+            }
+        }
+        
         if (isDirected()) {
 //            drawArrow(g2, new Point((int) source.getX(), (int) source.getY()),
 //                    new Point((int) target.getX(), (int) target.getY()),
 //                    6.0f);
         if(!selected){
             g2.setStroke(new java.awt.BasicStroke(1.0f));    
-            drawArrowNew(g2, new Point((int) source.getX(), (int) source.getY()),
-                    new Point((int) target.getX(), (int) target.getY()),
-                    6, 14);
+            //drawArrowNew(g2, new Point((int) source.getX(), (int) source.getY()),
+            //        new Point((int) target.getX(), (int) target.getY()),
+            //        6, 14);
         }else{
             g2.setStroke(new java.awt.BasicStroke(4.0f));    
-            drawArrowNew(g2, new Point((int) source.getX(), (int) source.getY()),
-                    new Point((int) target.getX(), (int) target.getY()),
-                    6, 14);
+            //drawArrowNew(g2, new Point((int) source.getX(), (int) source.getY()),
+            //        new Point((int) target.getX(), (int) target.getY()),
+            //        6, 14);
         }
         }
 

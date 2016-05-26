@@ -44,7 +44,10 @@ public class Vertex {
                 - this.getRay(), this.getRay() * 2, this.getRay() * 2);
 
         g2.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_OVER, 1.0f));
-
+        
+        g2.setColor(Color.BLACK);
+        g2.drawString(String.valueOf(this.ID), this.x-4, this.y-10);
+       
     }
 
     public float getX() {

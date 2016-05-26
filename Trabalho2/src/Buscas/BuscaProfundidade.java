@@ -23,6 +23,7 @@ public class BuscaProfundidade {
     private int componentes[];
     private int componenteAtual;
     private int raizBusca;
+    private Stack<Integer> ordemTopologica;
     
     private final static int BRANCO = 1;
     private final static int CINZA = 2;
@@ -35,6 +36,7 @@ public class BuscaProfundidade {
         tempoFinaliza = new int[representacao.getNumVertices()];
         componentes = new int[representacao.getNumVertices()];
         pai = new int[representacao.getNumVertices()];
+        ordemTopologica = new Stack<Integer>();
     }
     
     public int getTempoChegada(int i){
@@ -45,6 +47,10 @@ public class BuscaProfundidade {
         return tempoFinaliza[i];
     }
 
+    public Stack<Integer> getOrdemTopologica(){
+        return ordemTopologica;
+    }
+    
     //é usado para mostar em qual componente pertence cada vertice
     //por exemplo:
     //
@@ -92,6 +98,7 @@ public class BuscaProfundidade {
         cor[indexVertice] = PRETO;
         tempo = tempo + 1;
         tempoFinaliza[indexVertice] = tempo;
+        ordemTopologica.add(indexVertice);
         return tempo;
     }
     
@@ -117,6 +124,7 @@ public class BuscaProfundidade {
         
         
     }
+
     
     
 }

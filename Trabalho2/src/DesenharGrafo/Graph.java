@@ -19,7 +19,7 @@ public class Graph {
         return isDigrafo;
     }
     
-    public Graph(int nVert, boolean isDigrafo) {
+    public Graph(int nVert, boolean isDigrafo, boolean isCirculo) {
         this.isDigrafo = isDigrafo;
         RainbowScale cS = new RainbowScale();
         //GrayScale cS = new GrayScale();
@@ -34,7 +34,7 @@ public class Graph {
 //            }
             this.vertex.add(v);
         }
-        computeCircledPosition(150);
+        if(isCirculo)computeCircledPosition(150);
     }
 
     public void addVertex(Vertex v){
