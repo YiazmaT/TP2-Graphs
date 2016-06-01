@@ -6,6 +6,8 @@
 package Trabalho2;
 
 import Buscas.BuscaProfundidade;
+import CaminhoMinimo.BellmanFord;
+import CaminhoMinimo.Dijkstra;
 import ColorScale.RainbowScale;
 import DesenharGrafo.Edge;
 import DesenharGrafo.Graph;
@@ -653,6 +655,30 @@ public class Main extends javax.swing.JFrame {
         
         for(int i=0;i<componentes.length;i++){
             desenho.getVertex().get(i).setColor(rbS.getColor((componentes[i]-1) * compStep));
+        }
+        view.cleanImage();
+        view.repaint();
+    }
+    
+    public void caminhoMinimo(int raiz, boolean isDijkstra){
+        Grafo grafo;
+        if(isMatrizSelected()) grafo = matriz;
+        else grafo = lista;
+        int pai[];
+        
+        if(isDijkstra){
+            Dijkstra dijs = new Dijkstra(grafo);
+            dijs.caminhoMinimo(raiz);
+            pai = dijs.getPai();
+        }else{
+            BellmanFord bf = new BellmanFord(grafo,grafo.getNumVertices());
+            bf.caminhoMinimo(raiz);
+            pai = bf.getPai();
+        }
+        
+        
+        for(int i=0;i<pai.length;i++){
+            desenho.setEdgeAsSelected(pai[i],i);
         }
         view.cleanImage();
         view.repaint();

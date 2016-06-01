@@ -149,7 +149,9 @@ public class Dijkstra {
             return comparado.peso - this.peso;
         }
     }
-    
+    public int[] getPai(){
+        return pai;
+    }
    
 }
 

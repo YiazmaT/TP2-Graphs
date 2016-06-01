@@ -112,4 +112,7 @@ public class BellmanFord {
     public int getDistancia(int i){
         return d[i];
     }
+    public int[] getPai(){
+        return pai;
+    }
 }

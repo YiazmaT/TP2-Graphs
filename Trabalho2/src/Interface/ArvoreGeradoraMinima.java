@@ -123,7 +123,7 @@ public class ArvoreGeradoraMinima extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if(jRadioButton1.isSelected() == true){
-            pai.arvoreGeradoraMinima(false, 0);
+            pai.arvoreGeradoraMinima(false, Integer.parseInt(jTextField1.getText()));
         }else{
             pai.arvoreGeradoraMinima(true, 0);
         }

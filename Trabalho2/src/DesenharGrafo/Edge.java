@@ -91,7 +91,10 @@ public class Edge {
         }
         }
 
-
+        g2.setColor(Color.BLACK);
+        
+       
+        g2.drawString(String.valueOf(peso), (int)(source.getX() + target.getX())/2, (int)(source.getY() + target.getY())/2);
         g2.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_OVER, 1.0f));
     }
     

@@ -37,6 +37,12 @@ public class Graph {
         if(isCirculo)computeCircledPosition(150);
     }
 
+    public void descelecionarEdges(){
+        for(Edge e :edges){
+            e.setSelected(false);
+        }
+    }
+    
     public void addVertex(Vertex v){
         this.vertex.add(v);
     }

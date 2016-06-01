@@ -112,63 +112,8 @@ public class CaminhoMinimoEntreVertices extends javax.swing.JPanel {
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       Grafo grafo;
-       if(pai.isMatrizSelected()) grafo = Main.matriz;
-       else grafo = Main.lista;
-       
-       int raizBusca = Integer.parseInt(jTextField1.getText());
-       if(raizBusca < 0 || raizBusca >= grafo.getNumVertices()){
-           JOptionPane.showMessageDialog(null, "O vertice deve ser menor que: "+ grafo.getNumVertices());
-           return;
-       }
-       if(grafo == null){
-           JOptionPane.showMessageDialog(null, "Nenhum grafo foi carregado!");
-           return;
-       }
-       /*
-       if(jRadioButton1.isSelected())
-       {
-           Dijkstra dijkstra = new Dijkstra(grafo);
-           dijkstra.caminhoMinimo(raizBusca);
-           
-           DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
-           String[] tabela = new String[3];
-        
-           while(dtm.getRowCount() > 0)
-           {
-               dtm.removeRow(0);
-           }
-        
-           for(int i = 0; i < grafo.getNumVertices(); i++)
-           {
-               tabela[0] = String.valueOf(i);
-               tabela[1] = dijkstra.getCaminho(i);
-               tabela[2] = String.valueOf(dijkstra.getDistancia(i));
-               dtm.addRow(tabela);
-           }
-       }
-       else
-       {
-           BellmanFord bellmanford = new BellmanFord(grafo, grafo.getNumVertices());
-           bellmanford.caminhoMinimo(raizBusca);
-           
-           DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
-           String[] tabela = new String[3];
-           
-           while(dtm.getRowCount() > 0)
-           {
-               dtm.removeRow(0);
-           }
-        
-           for(int i = 0; i < grafo.getNumVertices(); i++)
-           {
-               tabela[0] = String.valueOf(i);
-               tabela[1] = bellmanford.getCaminho(i);
-               tabela[2] = String.valueOf(bellmanford.getDistancia(i));
-               dtm.addRow(tabela);
-           }
-       }
-       */
+        int raiz = Integer.parseInt(jTextField1.getText());
+        pai.caminhoMinimo(raiz, jRadioButton1.isSelected());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

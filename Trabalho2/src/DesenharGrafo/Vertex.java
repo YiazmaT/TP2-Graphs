@@ -45,11 +45,19 @@ public class Vertex {
 
         g2.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_OVER, 1.0f));
         
-        g2.setColor(Color.BLACK);
-        g2.drawString(String.valueOf(this.ID), this.x-4, this.y-10);
+        
+        g2.setColor(getContrastColor(color));
+        //g2.setColor(getContrastColor(color));
+        g2.drawString(String.valueOf(this.ID), this.x-4, this.y+4);
        
     }
-
+    
+   
+    public Color getContrastColor(Color color) {
+        double y = (299 * color.getRed() + 587 * color.getGreen() + 114 * color.getBlue()) / 1000;
+        return y >= 128 ? Color.black : Color.white;
+    }
+    
     public float getX() {
         return x;
     }
