@@ -14,8 +14,6 @@ import DesenharGrafo.Graph;
 import DesenharGrafo.Vertex;
 import Interface.ArvoreGeradoraMinima;
 import Interface.BuscaEmLargura;
-import notUsed.BuscaEmProfundidade;
-import notUsed.CaminhoEntreDoisVertices;
 import Interface.CaminhoMinimoEntreVertices;
 import Interface.ComponentesConexas;
 import Interface.Coloracao;
@@ -60,29 +58,13 @@ import ÁrvoreGeradoraMinima.AgmPrim;
  * @author Eymar Lima
  */
 public class Main extends javax.swing.JFrame {
-    private int status;
     
     private static Graph desenho;
     private int isDigraph = 0;
-    public static ListaAdjacencia lista;
-    public static MatrizAdjacencia matriz;
+    private ListaAdjacencia lista;
     public  ViewPanel view;
     private BufferedImage imageBuffer;
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-    
-    public boolean isMatrizSelected()
-    {
-        if(jRadioButton1.isSelected()) return(true);
-        return(false);
-    }
-    
+    private String diretorio;
     /**
      * Creates new form Main
      */
@@ -91,17 +73,8 @@ public class Main extends javax.swing.JFrame {
         view = new ViewPanel();
         
         this.setVisible(true);
-        
-        status=0;
         initComponents();
-        jPanel1.removeAll();
-        jPanel1.add(new Start(this.status, isDigraph));
-        jPanel1.revalidate();
-        jPanel1.repaint();
-        
-        jRadioButton1.setSelected(true);
-        jPanel1.setLayout(new GridLayout(1, 1));
-        
+        this.diretorio = "n";
         this.setLocationRelativeTo(null);
         try{
             Image icon = Toolkit.getDefaultToolkit().getImage("src/gui/images/mainicon.png");
@@ -125,11 +98,6 @@ public class Main extends javax.swing.JFrame {
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu5 = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane(this.view);
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu4 = new javax.swing.JMenu();
@@ -166,64 +134,15 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 138, Short.MAX_VALUE)
-        );
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setText("Tipo de Estrutura:");
-
-        jRadioButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jRadioButton1.setText("Matriz");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
-            }
-        });
-
-        jRadioButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jRadioButton2.setText("Lista");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jRadioButton1)
-                .addGap(18, 18, 18)
-                .addComponent(jRadioButton2)
-                .addContainerGap(349, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
-                .addContainerGap(11, Short.MAX_VALUE))
-        );
-
         jMenu4.setText("Inicio");
         jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu4MouseClicked(evt);
+            }
+        });
+        jMenu4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu4ActionPerformed(evt);
             }
         });
         jMenuBar1.add(jMenu4);
@@ -258,7 +177,7 @@ public class Main extends javax.swing.JFrame {
         jMenu2.add(jMenuItem2);
 
         jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/connection.png"))); // NOI18N
-        jMenuItem4.setText("Componentes Conexas");
+        jMenuItem4.setText("Componentes Conexas (ok)");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);
@@ -276,7 +195,7 @@ public class Main extends javax.swing.JFrame {
         jMenu2.add(jMenuItem5);
 
         jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/line.png"))); // NOI18N
-        jMenuItem6.setText("Caminho Mínimo Entre Vértices");
+        jMenuItem6.setText("Caminho Mínimo Entre Vértices (ok)");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem6ActionPerformed(evt);
@@ -341,18 +260,11 @@ public class Main extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -368,7 +280,7 @@ public class Main extends javax.swing.JFrame {
 
     private void loadFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadFileActionPerformed
         JFileChooser file = new JFileChooser();
-        file.setDialogTitle("fodac");
+        file.setDialogTitle("Escolha o arquivo do grafo");
         file.setFileFilter(new FileFilter(){
 
             @Override
@@ -385,31 +297,15 @@ public class Main extends javax.swing.JFrame {
     int opcao = file.showOpenDialog(this);
     
     if(opcao == JFileChooser.APPROVE_OPTION){
-        String diretorio = file.getSelectedFile().getAbsolutePath();
-        this.status = 1;
-        
-        Grafo[] grafos;
-        
-        grafos = Utilitarios.leitura(diretorio);
-        
-        lista = (ListaAdjacencia) grafos[0];
-        matriz = (MatrizAdjacencia) grafos[1];
-        
-        
-        
+        this.diretorio = file.getSelectedFile().getAbsolutePath();
+  
+        lista = Utilitarios.leitura(this.diretorio);
         //desenho:
         this.desenho = leituraDesenho();
         this.print();
         if(desenho.getIsDigrafo() == true) isDigraph = 1;
         else isDigraph = 0;
-        
-        jPanel1.removeAll();
-        jPanel1.add(new Start(this.status, isDigraph));
-        jPanel1.revalidate();
-        jPanel1.repaint();
     }
-    
-    //apartir de agora a string diretorio possui o diretorio do arquivo
     
     }//GEN-LAST:event_loadFileActionPerformed
 
@@ -433,49 +329,29 @@ public class Main extends javax.swing.JFrame {
     }
     
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        jPanel1.removeAll();
-        jPanel1.add(new BuscaEmLargura(this));
-        jPanel1.revalidate();
-        jPanel1.repaint();
+        String temp = JOptionPane.showInputDialog("Introduza o vértice inicial:");
+        int vInicial = Integer.parseInt(temp);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
-        jPanel1.removeAll();
-        jPanel1.add(new Start(this.status, this.isDigraph));
-        jPanel1.revalidate();
-        jPanel1.repaint();
+        //lista = Utilitarios.leitura(this.diretorio);
+        this.desenho = leituraDesenho();
+        this.print();
     }//GEN-LAST:event_jMenu4MouseClicked
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        jPanel1.removeAll();
-        jPanel1.add(new ComponentesConexas(this));
-        jPanel1.revalidate();
-        jPanel1.repaint();
+        this.componentesConexas();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        jPanel1.removeAll();
-        jPanel1.add(new ArvoreGeradoraMinima(this));
-        jPanel1.revalidate();
-        jPanel1.repaint();
+
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        jPanel1.removeAll();
-        jPanel1.add(new CaminhoMinimoEntreVertices(this));
-        jPanel1.revalidate();
-        jPanel1.repaint();
+        String temp = JOptionPane.showInputDialog("Introduza o vértice inicial:");
+        int vInicial = Integer.parseInt(temp);
+        this.caminhoMinimo(vInicial);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
-
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        jRadioButton2.setSelected(false);
-        jRadioButton1.setSelected(true);
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
-
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
-        jRadioButton1.setSelected(false);
-        jRadioButton2.setSelected(true);
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
         
@@ -491,32 +367,26 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu3MouseClicked
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        jPanel1.removeAll();
-        jPanel1.add(new Coloracao(this));
-        jPanel1.revalidate();
-        jPanel1.repaint();
+
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        jPanel1.removeAll();
-        jPanel1.add(new Conectividade(this));
-        jPanel1.revalidate();
-        jPanel1.repaint();
+
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        jPanel1.removeAll();
-        jPanel1.add(new Transposicao(this));
-        jPanel1.revalidate();
-        jPanel1.repaint();
+
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        jPanel1.removeAll();
-        jPanel1.add(new OrdemTopologica(this));
-        jPanel1.revalidate();
-        jPanel1.repaint();
+        String temp = JOptionPane.showInputDialog("Introduza o vértice inicial:");
+        int vInicial = Integer.parseInt(temp);
+        this.ordemTopologica(vInicial);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
+
+    }//GEN-LAST:event_jMenu4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -557,7 +427,6 @@ public class Main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -574,27 +443,19 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem loadFile;
     // End of variables declaration//GEN-END:variables
     
     public void ordemTopologica(int raiz){
-        Grafo grafo;
-        if(isMatrizSelected())grafo = matriz;
-        else grafo = lista;
-        
         Stack<Integer> ordem;
         
-        BuscaProfundidade busca = new BuscaProfundidade(grafo);
+        BuscaProfundidade busca = new BuscaProfundidade(lista);
         busca.buscaProfundidade(raiz);
         
         ordem = busca.getOrdemTopologica();
         
-        criarDesenhoOrdem(ordem,grafo);
+        criarDesenhoOrdem(ordem,lista);
         
         
     }
@@ -638,15 +499,10 @@ public class Main extends javax.swing.JFrame {
     }
     
     public void componentesConexas(){
-        Grafo grafo;
         int componentes[];
+
         
-        if(isMatrizSelected()) grafo = matriz;
-        else grafo = lista;
-        
-        
-        
-        BuscaProfundidade busca = new BuscaProfundidade(grafo);
+        BuscaProfundidade busca = new BuscaProfundidade(lista);
         busca.buscaProfundidade(0);
         componentes = busca.getComponentes();
         
@@ -660,22 +516,13 @@ public class Main extends javax.swing.JFrame {
         view.repaint();
     }
     
-    public void caminhoMinimo(int raiz, boolean isDijkstra){
-        Grafo grafo;
-        if(isMatrizSelected()) grafo = matriz;
-        else grafo = lista;
+    public void caminhoMinimo(int raiz){
         int pai[];
         
-        if(isDijkstra){
-            Dijkstra dijs = new Dijkstra(grafo);
-            dijs.caminhoMinimo(raiz);
-            pai = dijs.getPai();
-        }else{
-            BellmanFord bf = new BellmanFord(grafo,grafo.getNumVertices());
-            bf.caminhoMinimo(raiz);
-            pai = bf.getPai();
-        }
-        
+       
+        Dijkstra dijs = new Dijkstra(lista);
+        dijs.caminhoMinimo(raiz);
+        pai = dijs.getPai();
         
         for(int i=0;i<pai.length;i++){
             desenho.setEdgeAsSelected(pai[i],i);
@@ -684,20 +531,13 @@ public class Main extends javax.swing.JFrame {
         view.repaint();
     }
     
-    public void arvoreGeradoraMinima(boolean isKruskal, int verticeInicial){
-        Grafo grafo;
+    public void arvoreGeradoraMinima(int verticeInicial){
         Grafo resultado;
-        if(isMatrizSelected()) grafo = matriz;
-        else grafo = lista;
         
-        if(isKruskal){
-            AgmKruskal kruskal = new AgmKruskal(grafo.getNumVertices(),grafo);
-            resultado = kruskal.AGM();
-        }else{
-            AgmPrim prim = new AgmPrim(grafo.getNumVertices(),grafo);
-            resultado = prim.AGM(verticeInicial);
-        }
         
+        AgmKruskal kruskal = new AgmKruskal(lista.getNumVertices(),lista);
+        resultado = kruskal.AGM();
+ 
         PriorityQueue<Aresta> arestas = resultado.getArestas();
         
         for(Aresta a : arestas){

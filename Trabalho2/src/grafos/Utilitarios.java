@@ -39,7 +39,7 @@ public class Utilitarios{
     }
     
     
-    public static Grafo[] leitura(String arquivo)
+    public static ListaAdjacencia leitura(String arquivo)
     {
         Scanner sc;
         File f = new File(arquivo);
@@ -47,10 +47,7 @@ public class Utilitarios{
             sc = new Scanner(f);
             int isDigrafo = sc.nextInt();
             int numVertice = sc.nextInt();
-            Grafo[] grafos = new Grafo[2];
-            
-            grafos[0] = new ListaAdjacencia(numVertice, (isDigrafo == 1));
-            grafos[1] = new MatrizAdjacencia(numVertice, (isDigrafo == 1));
+            ListaAdjacencia grafos = new ListaAdjacencia(numVertice,isDigrafo == 1);
             
             while(sc.hasNext())
             {
@@ -58,8 +55,8 @@ public class Utilitarios{
                 int nodeB = sc.nextInt();
                 int valor = sc.nextInt();
                 
-                grafos[0].inserirAdjacencia(nodeA, nodeB, valor);
-                grafos[1].inserirAdjacencia(nodeA, nodeB, valor);
+                grafos.inserirAdjacencia(nodeA, nodeB, valor);
+                
             }
             
             sc.close();
