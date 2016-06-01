@@ -133,7 +133,24 @@ public class ListaAdjacencia extends Grafo{
     }
 
     
-    
+    public int verticeMaisAdjacencia(){
+        NodeLista nodeAtual;
+        int contAtual, contMaior = 0;
+        int posiMaior = 0;
+        for(int i=1;i<numVertices;i++){
+            nodeAtual = vertices[i].getProx();
+            contAtual = 0;
+            while(nodeAtual != null){
+                nodeAtual = nodeAtual.getProx();
+                contAtual++;
+            }
+            if(contAtual > contMaior){
+                posiMaior = i;
+                contMaior = contAtual;
+            }
+        }
+        return posiMaior;
+    }
     
 }
 
