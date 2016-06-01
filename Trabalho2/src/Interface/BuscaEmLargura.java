@@ -85,50 +85,9 @@ public class BuscaEmLargura extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       Grafo grafo;
-       
-       int raizBusca;
-       if(pai.isMatrizSelected()) grafo = Main.matriz;
-       else grafo = Main.lista;
-       
-       if(grafo == null){
-           JOptionPane.showMessageDialog(null, "Nenhum grafo foi carregado!");
-           return;
-       }
-       
-       
-       raizBusca = Integer.parseInt(jTextField1.getText());
-       if(raizBusca >= grafo.getNumVertices() || raizBusca < 0){
-           JOptionPane.showMessageDialog(null, "O vertice inicial deve ser menor que: " + grafo.getNumVertices());
-           return;
-       }
-       BuscaLargura busca = new BuscaLargura(grafo);
-       busca.buscaLargura(raizBusca);
-       
-       //atualizarTabela(grafo, busca);
-       
+      
     }//GEN-LAST:event_jButton2ActionPerformed
-    /*
-    public void atualizarTabela(Grafo grafo, BuscaLargura busca)
-    {
-        DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
-        String[] tabela = new String[3];
-        
-        while(dtm.getRowCount() > 0)
-        {
-            dtm.removeRow(0);
-        }
-        
-        for(int i = 0; i < grafo.getNumVertices(); i++)
-        {
-            tabela[0] = String.valueOf(i);
-            tabela[1] = busca.getCaminho(i);
-            tabela[2] = String.valueOf(busca.getDistancia(i));
-            dtm.addRow(tabela);
-        }
-    }
-    */      
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;

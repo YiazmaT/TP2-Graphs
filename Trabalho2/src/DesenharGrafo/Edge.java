@@ -80,22 +80,23 @@ public class Edge {
 //                    6.0f);
         if(!selected){
             g2.setStroke(new java.awt.BasicStroke(1.0f));    
-            //drawArrowNew(g2, new Point((int) source.getX(), (int) source.getY()),
-            //        new Point((int) target.getX(), (int) target.getY()),
-            //        6, 14);
+            drawArrowNew(g2, new Point((int) source.getX(), (int) source.getY()),
+                    new Point((int) target.getX(), (int) target.getY()),
+                    6, 14);
         }else{
             g2.setStroke(new java.awt.BasicStroke(4.0f));    
-            //drawArrowNew(g2, new Point((int) source.getX(), (int) source.getY()),
-            //        new Point((int) target.getX(), (int) target.getY()),
-            //        6, 14);
+            drawArrowNew(g2, new Point((int) source.getX(), (int) source.getY()),
+                    new Point((int) target.getX(), (int) target.getY()),
+                    6, 14);
         }
         }
 
-        g2.setColor(Color.BLACK);
+         g2.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_OVER, 1.0f));
+         g2.setColor(Color.BLACK);
         
        
         g2.drawString(String.valueOf(peso), (int)(source.getX() + target.getX())/2, (int)(source.getY() + target.getY())/2);
-        g2.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_OVER, 1.0f));
+       
     }
     
     public int getSourceID(){

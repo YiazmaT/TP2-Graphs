@@ -112,8 +112,7 @@ public class CaminhoMinimoEntreVertices extends javax.swing.JPanel {
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int raiz = Integer.parseInt(jTextField1.getText());
-        pai.caminhoMinimo(raiz, jRadioButton1.isSelected());
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
