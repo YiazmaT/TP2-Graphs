@@ -44,23 +44,28 @@ public class Coloracao {
         
         while(iterador.hasNext()){
             int node = iterador.next();
-            if(color[node] != -1)coresUsadas.add(color[i]);
+            if(color[node] != -1)coresUsadas.add(color[node]);
         }
         
         corAtual = 0;
         while(coresUsadas.isEmpty()==false){
             corUsada = coresUsadas.poll();
-            if(corUsada != corAtual)return corAtual;
-            corAtual++;
+            if(corAtual == corUsada)continue;
+            
+            if(++corAtual!=corUsada)return corAtual;
         }
-        return proximaCor++;
+        
+        if(corAtual==proximaCor)proximaCor++;
+        return corAtual;
     }
     
     public int[] coloracao(){
         int raiz;
         
+        
         proximaCor = 0;
         raiz = grafo.verticeMaisAdjacencia();
+        inicializar();
         
         escolherCor(raiz);
         for(int i=0;i<grafo.getNumVertices();i++){
@@ -69,6 +74,10 @@ public class Coloracao {
         
         
         return color;
+    }
+    
+    public int getNumCores(){
+        return proximaCor;
     }
     
     public void escolherCor(int vertice){

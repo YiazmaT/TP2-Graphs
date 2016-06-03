@@ -5,53 +5,33 @@
  */
 package Trabalho2;
 
+import Buscas.BuscaLargura;
 import Buscas.BuscaProfundidade;
-import CaminhoMinimo.BellmanFord;
 import CaminhoMinimo.Dijkstra;
 import ColorScale.RainbowScale;
 import DesenharGrafo.Edge;
 import DesenharGrafo.Graph;
 import DesenharGrafo.Vertex;
-import Interface.ArvoreGeradoraMinima;
-import Interface.BuscaEmLargura;
-import Interface.CaminhoMinimoEntreVertices;
-import Interface.ComponentesConexas;
-import Interface.Coloracao;
-import Interface.ComponentesConexas;
-import Interface.Conectividade;
-import Interface.OrdemTopologica;
-import Interface.Transposicao;
 import grafos.Aresta;
 import grafos.Grafo;
 import grafos.ListaAdjacencia;
-import grafos.MatrizAdjacencia;
 import grafos.Utilitarios;
 import java.awt.Color;
-import java.awt.Container;
-import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 import java.util.Stack;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileFilter;
 import ÁrvoreGeradoraMinima.AgmKruskal;
-import ÁrvoreGeradoraMinima.AgmPrim;
 
 /**
  *
@@ -328,9 +308,24 @@ public class Main extends javax.swing.JFrame {
         this.view.setGraph(desenho);
     }
     
+    public void buscaLargura(int raiz){
+        Buscas.BuscaLargura busca = new BuscaLargura(lista);
+        busca.buscaLargura(raiz);
+        int[] pai;
+        
+        pai = busca.getPai();
+        
+        for(int i=0;i<pai.length;i++){
+            desenho.setEdgeAsSelected(pai[i],i);
+        }
+        view.cleanImage();
+        view.repaint();
+    }
+    
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         String temp = JOptionPane.showInputDialog("Introduza o vértice inicial:");
         int vInicial = Integer.parseInt(temp);
+        this.buscaLargura(vInicial);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
@@ -344,7 +339,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-
+        this.arvoreGeradoraMinima();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
@@ -367,7 +362,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu3MouseClicked
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-
+        this.coloracao();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
@@ -460,6 +455,21 @@ public class Main extends javax.swing.JFrame {
         
     }
     
+    public void coloracao(){
+        Buscas.Coloracao color = new Buscas.Coloracao(lista);
+        
+        int cores[] = color.coloracao();
+        int step = 255/(color.getNumCores());
+        
+        RainbowScale rs = new RainbowScale();
+        for(int i=0;i<cores.length;i++){
+            desenho.getVertex().get(i).setColor(rs.getColor(step*cores[i]));
+        }
+        
+        view.cleanImage();
+        view.repaint();
+    }
+    
     public void criarDesenhoOrdem(Stack<Integer> ordem, Grafo grafo){
         Graph novoDesenho = new Graph(grafo.getNumVertices(), true,false);
         float step = 75;
@@ -531,7 +541,7 @@ public class Main extends javax.swing.JFrame {
         view.repaint();
     }
     
-    public void arvoreGeradoraMinima(int verticeInicial){
+    public void arvoreGeradoraMinima(){
         Grafo resultado;
         
         

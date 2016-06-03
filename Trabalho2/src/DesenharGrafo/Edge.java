@@ -64,13 +64,13 @@ public class Edge {
            
         }else{
             if(arqueado == 1){     
-                g2.drawArc((int)source.getX(), (int)source.getY() - 75/2, 
+                g2.drawArc((int)source.getX(), (int)source.getY() - diferenca/75*10, 
                         diferenca,
-                        75,0, 180);
+                        diferenca/75*20,0, 180);
             }else{
-                g2.drawArc((int)source.getX(), (int)source.getY()-75/2, 
+                g2.drawArc((int)source.getX(), (int)source.getY()- diferenca/75*10, 
                         diferenca,
-                        75,0, -180);
+                        diferenca/75*20,0, -180);
             }
         }
         
@@ -95,7 +95,15 @@ public class Edge {
          g2.setColor(Color.BLACK);
         
        
-        g2.drawString(String.valueOf(peso), (int)(source.getX() + target.getX())/2, (int)(source.getY() + target.getY())/2);
+        if(arqueado == 0){
+            g2.drawString(String.valueOf(peso), (int)(source.getX() + target.getX())/2, (int)(source.getY() + target.getY())/2);
+        }else{
+            if(arqueado == 1){
+                g2.drawString(String.valueOf(peso),(int)(source.getX() + target.getX())/2, source.getY() - diferenca/75*10);
+            }else{
+                g2.drawString(String.valueOf(peso),(int)(source.getX() + target.getX())/2, source.getY() + diferenca/75*10 + 10);
+            }
+        }
        
     }
     

@@ -102,6 +102,8 @@ public class BuscaProfundidade {
         return tempo;
     }
     
+    
+    
     public void buscaProfundidade(int raiz){
         componenteAtual = 0;
         int i;

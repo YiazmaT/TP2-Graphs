@@ -13,7 +13,7 @@ import java.awt.Color;
 public class Vertex {
     private float x;
     private float y;
-    private int ray = 8;
+    private int ray = 12;
     private Boolean selected = true;
     private Color color = Color.RED;
     private int ID;

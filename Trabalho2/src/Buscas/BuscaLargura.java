@@ -144,4 +144,8 @@ public class BuscaLargura {
         }
     }
 
+    public int[] getPai() {
+        return pai;
+    }
+
 }
