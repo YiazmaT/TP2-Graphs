@@ -74,7 +74,6 @@ public class Main extends javax.swing.JFrame {
         
         this.setVisible(true);
         initComponents();
-        this.diretorio = "n";
         this.setLocationRelativeTo(null);
         try{
             Image icon = Toolkit.getDefaultToolkit().getImage("src/gui/images/mainicon.png");
