@@ -38,25 +38,28 @@ public class Coloracao {
     
     public int corValida(int i){
         IteratorGrafos iterador;
-        PriorityQueue<Integer> coresUsadas = new PriorityQueue<>();
+        boolean[] coresUsadas = new boolean[proximaCor];
         int corUsada,corAtual;
+        boolean atualDisponivel;
         iterador = grafo.returnIterador(i);
+        
+        for(i=0;i<proximaCor;i++){
+            coresUsadas[i] = false;
+        }
         
         while(iterador.hasNext()){
             int node = iterador.next();
-            if(color[node] != -1)coresUsadas.add(color[node]);
+            if(color[node] != -1)coresUsadas[color[node]]= true;
         }
         
-        corAtual = 0;
-        while(coresUsadas.isEmpty()==false){
-            corUsada = coresUsadas.poll();
-            if(corAtual == corUsada)continue;
-            
-            if(++corAtual!=corUsada)return corAtual;
+        return encontrarCorValida(coresUsadas);
+    }
+    
+    public int encontrarCorValida(boolean[] coresUsadas){
+        for(int i=0;i<proximaCor;i++){
+            if(coresUsadas[i] == false)return i;
         }
-        
-        if(corAtual==proximaCor)proximaCor++;
-        return corAtual;
+        return proximaCor++;
     }
     
     public int[] coloracao(){
