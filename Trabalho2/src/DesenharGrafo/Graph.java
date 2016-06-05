@@ -50,7 +50,12 @@ public class Graph {
     public void addEdge(Edge e){
         this.edges.add(e);
     }
-
+    
+    public int getNumVertices()
+    {
+        return this.vertex.size();
+    }
+    
     public void computeCircledPosition(int ray){
         int nVert = this.vertex.size();
         int step = 360 / nVert;
@@ -70,6 +75,11 @@ public class Graph {
 
     public ArrayList<Vertex> getVertex() {
         return this.vertex;
+    }
+    
+    public ArrayList<Edge> getEdges()
+    {
+        return this.edges;
     }
 
     public void draw(java.awt.Graphics2D g2) {

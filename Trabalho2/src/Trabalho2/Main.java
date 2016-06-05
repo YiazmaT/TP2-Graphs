@@ -374,7 +374,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-
+        this.transposicao();
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
@@ -445,6 +445,29 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem loadFile;
     // End of variables declaration//GEN-END:variables
+    
+    public void conectividade()
+    {
+        //
+    }
+    
+    public void transposicao()
+    {
+        if(this.desenho.getIsDigrafo() == true)
+        {
+            ArrayList<Edge> arestas;
+            arestas = this.desenho.getEdges();
+        
+            Graph auxG = new Graph(this.desenho.getNumVertices(), true, true);
+            for (Edge aresta : arestas)
+            {
+                Edge auxE = new Edge(aresta.getEdgeTarget(), aresta.getEdgeSource(), aresta.getPeso(), true);
+                auxG.addEdge(auxE);
+            }
+            this.desenho = auxG;
+            this.print();
+        }
+    }
     
     public void ordemTopologica(int raiz){
         Stack<Integer> ordem;

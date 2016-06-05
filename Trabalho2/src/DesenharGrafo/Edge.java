@@ -107,6 +107,20 @@ public class Edge {
         return target.getID();
     }
     
+    public Vertex getEdgeSource()
+    {
+        return this.source;
+    }
+    
+    public Vertex getEdgeTarget()
+    {
+        return this.target;
+    }
+    
+    public int getPeso()
+    {
+        return this.peso;
+    }
  
     private void drawArrowNew(Graphics2D g2, Point s, Point t, int size, int deslocamento) {
         float r = (float) Math.sqrt(Math.pow(s.x - t.x, 2) + Math.pow(s.y - t.y, 2));
