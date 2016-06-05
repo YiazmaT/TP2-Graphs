@@ -30,15 +30,14 @@ public class Edge {
         this.peso = peso;
         this.directed = directed;
         arqueado = 0;
+        if(source.getID() == target.getID())arqueado = 3;
     }
 
     public void setArqueado(int arqueado){
         this.arqueado = arqueado;
     }
     
-    public void draw(java.awt.Graphics2D g2) {
-        //Combines the color of the two vertex to paint the edge
-
+    public void setStrokeComposite(Graphics2D g2){
         if (selected) {
             g2.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_OVER, 1.0f));
             g2.setStroke(new java.awt.BasicStroke(5.0f));            
@@ -50,6 +49,9 @@ public class Edge {
                 g2.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_OVER, 0.2f));
             }
         }
+    }
+    
+    public void drawEdge(Graphics2D g2){
         this.color = new Color((this.source.getColor().getRed() + this.target.getColor().getRed()) / 2,
                 (this.source.getColor().getGreen() + this.target.getColor().getGreen()) / 2,
                 (this.source.getColor().getBlue() + this.target.getColor().getBlue()) / 2);
@@ -57,44 +59,59 @@ public class Edge {
         g2.setColor(this.color);
         
         int diferenca = (int)(target.getX()-source.getX());
-            
-        if(arqueado == 0){
-           g2.drawLine(((int) this.source.getX()), ((int) this.source.getY()),
+        
+        switch(arqueado){
+            case 0:
+                g2.drawLine(((int) this.source.getX()), ((int) this.source.getY()),
                 ((int) this.target.getX()), ((int) this.target.getY()));
-           
-        }else{
-            if(arqueado == 1){     
+                break;
+                
+            case 1:
                 g2.drawArc((int)source.getX(), (int)source.getY() - diferenca/75*10, 
-                        diferenca,
-                        diferenca/75*20,0, 180);
-            }else{
+                    diferenca,
+                    diferenca/75*20,0, 180);
+                break;
+                
+            case 2:
                 g2.drawArc((int)source.getX(), (int)source.getY()- diferenca/75*10, 
-                        diferenca,
-                        diferenca/75*20,0, -180);
-            }
+                    diferenca,
+                    diferenca/75*20,0, -180);
+                break;
         }
         
+        
+    }
+    
+    public void drawArrow(Graphics2D g2){
         if (isDirected()) {
 //            drawArrow(g2, new Point((int) source.getX(), (int) source.getY()),
 //                    new Point((int) target.getX(), (int) target.getY()),
 //                    6.0f);
-        if(!selected){
-            g2.setStroke(new java.awt.BasicStroke(1.0f));    
-            drawArrowNew(g2, new Point((int) source.getX(), (int) source.getY()),
-                    new Point((int) target.getX(), (int) target.getY()),
-                    6, 14);
-        }else{
-            g2.setStroke(new java.awt.BasicStroke(4.0f));    
-            drawArrowNew(g2, new Point((int) source.getX(), (int) source.getY()),
-                    new Point((int) target.getX(), (int) target.getY()),
-                    6, 14);
-        }
+        if(arqueado == 0){
+            if(!selected){
+                g2.setStroke(new java.awt.BasicStroke(1.0f));    
+                drawArrowNew(g2, new Point((int) source.getX(), (int) source.getY()),
+                        new Point((int) target.getX(), (int) target.getY()),
+                        6, 14);
+            }else{
+                g2.setStroke(new java.awt.BasicStroke(4.0f));    
+                drawArrowNew(g2, new Point((int) source.getX(), (int) source.getY()),
+                        new Point((int) target.getX(), (int) target.getY()),
+                        6, 14);
+            }
+            }
+        }if(arqueado == 1){
+            
         }
 
-         g2.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_OVER, 1.0f));
-         g2.setColor(Color.BLACK);
+    }
+    
+    public void drawArrowArqueado(Graphics2D g2){
         
-       
+    }
+    
+    public void drawPeso(Graphics2D g2){
+        int diferenca = (int)(target.getX()-source.getX());
         if(arqueado == 0){
             g2.drawString(String.valueOf(peso), (int)(source.getX() + target.getX())/2, (int)(source.getY() + target.getY())/2);
         }else{
@@ -105,6 +122,20 @@ public class Edge {
             }
         }
        
+    }
+    
+    public void draw(java.awt.Graphics2D g2) {
+        //Combines the color of the two vertex to paint the edge
+        setStrokeComposite(g2);
+        drawEdge(g2);
+        drawArrow(g2);
+        drawPeso(g2);
+        
+         g2.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_OVER, 1.0f));
+         g2.setColor(Color.BLACK);
+        
+       
+        
     }
     
     public int getSourceID(){

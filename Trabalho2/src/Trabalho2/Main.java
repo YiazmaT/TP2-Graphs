@@ -315,6 +315,7 @@ public class Main extends javax.swing.JFrame {
         
         pai = busca.getPai();
         
+        desenho.descelecionarEdges();
         for(int i=0;i<pai.length;i++){
             desenho.setEdgeAsSelected(pai[i],i);
         }
@@ -534,6 +535,7 @@ public class Main extends javax.swing.JFrame {
         dijs.caminhoMinimo(raiz);
         pai = dijs.getPai();
         
+        desenho.descelecionarEdges();
         for(int i=0;i<pai.length;i++){
             desenho.setEdgeAsSelected(pai[i],i);
         }
@@ -550,6 +552,7 @@ public class Main extends javax.swing.JFrame {
  
         PriorityQueue<Aresta> arestas = resultado.getArestas();
         
+        desenho.descelecionarEdges();
         for(Aresta a : arestas){
             int nodeA,nodeB;
             nodeA = a.getNodeA();
