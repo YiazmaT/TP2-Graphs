@@ -62,6 +62,9 @@ public class Main extends javax.swing.JFrame {
         }catch(Exception e){
             JOptionPane.showMessageDialog(rootPane, e, "ERRO", 0);
         }
+
+        this.inicioMenu.setEnabled(false);
+        this.desabilitarMenus();
     }
 
     /**
@@ -80,18 +83,18 @@ public class Main extends javax.swing.JFrame {
         jMenu6 = new javax.swing.JMenu();
         jScrollPane1 = new javax.swing.JScrollPane(this.view);
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu4 = new javax.swing.JMenu();
+        inicioMenu = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
         loadFile = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
+        buscaEmLarguraMenu = new javax.swing.JMenuItem();
+        componentesConexasMenu = new javax.swing.JMenuItem();
+        arvoreGeradoraMinimaMenu = new javax.swing.JMenuItem();
+        caminhoMinimoEntreVerticesMenu = new javax.swing.JMenuItem();
+        coloracaoMenu = new javax.swing.JMenuItem();
+        conectividadeMenu = new javax.swing.JMenuItem();
+        transposicaoMenu = new javax.swing.JMenuItem();
+        ordemTopologicaMenu = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
 
         jMenu5.setText("File");
@@ -114,18 +117,18 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        jMenu4.setText("Inicio");
-        jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
+        inicioMenu.setText("Inicio");
+        inicioMenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu4MouseClicked(evt);
+                inicioMenuMouseClicked(evt);
             }
         });
-        jMenu4.addActionListener(new java.awt.event.ActionListener() {
+        inicioMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu4ActionPerformed(evt);
+                inicioMenuActionPerformed(evt);
             }
         });
-        jMenuBar1.add(jMenu4);
+        jMenuBar1.add(inicioMenu);
 
         jMenu1.setText("Arquivo");
         jMenu1.addActionListener(new java.awt.event.ActionListener() {
@@ -147,77 +150,77 @@ public class Main extends javax.swing.JFrame {
 
         jMenu2.setText("Funções");
 
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search2.png"))); // NOI18N
-        jMenuItem2.setText("Busca em Largura");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        buscaEmLarguraMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search2.png"))); // NOI18N
+        buscaEmLarguraMenu.setText("Busca em Largura (ok)");
+        buscaEmLarguraMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                buscaEmLarguraMenuActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem2);
+        jMenu2.add(buscaEmLarguraMenu);
 
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/connection.png"))); // NOI18N
-        jMenuItem4.setText("Componentes Conexas (ok)");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        componentesConexasMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/connection.png"))); // NOI18N
+        componentesConexasMenu.setText("Componentes Conexas (ok)");
+        componentesConexasMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                componentesConexasMenuActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem4);
+        jMenu2.add(componentesConexasMenu);
 
-        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tree.png"))); // NOI18N
-        jMenuItem5.setText("Árvore Geradora Mínima");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        arvoreGeradoraMinimaMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tree.png"))); // NOI18N
+        arvoreGeradoraMinimaMenu.setText("Árvore Geradora Mínima (ok)");
+        arvoreGeradoraMinimaMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                arvoreGeradoraMinimaMenuActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem5);
+        jMenu2.add(arvoreGeradoraMinimaMenu);
 
-        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/line.png"))); // NOI18N
-        jMenuItem6.setText("Caminho Mínimo Entre Vértices (ok)");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        caminhoMinimoEntreVerticesMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/line.png"))); // NOI18N
+        caminhoMinimoEntreVerticesMenu.setText("Caminho Mínimo Entre Vértices (ok)");
+        caminhoMinimoEntreVerticesMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                caminhoMinimoEntreVerticesMenuActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem6);
+        jMenu2.add(caminhoMinimoEntreVerticesMenu);
 
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/redColorWheel.png"))); // NOI18N
-        jMenuItem1.setText("Coloração");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        coloracaoMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/redColorWheel.png"))); // NOI18N
+        coloracaoMenu.setText("Coloração (ok)");
+        coloracaoMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                coloracaoMenuActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem1);
+        jMenu2.add(coloracaoMenu);
 
-        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/conectivityRed.png"))); // NOI18N
-        jMenuItem3.setText("Conectividade");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        conectividadeMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/conectivityRed.png"))); // NOI18N
+        conectividadeMenu.setText("Conectividade (ok)");
+        conectividadeMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                conectividadeMenuActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem3);
+        jMenu2.add(conectividadeMenu);
 
-        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/double-arrowRed.png"))); // NOI18N
-        jMenuItem7.setText("Transposição");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+        transposicaoMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/double-arrowRed.png"))); // NOI18N
+        transposicaoMenu.setText("Transposição (ok)");
+        transposicaoMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
+                transposicaoMenuActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem7);
+        jMenu2.add(transposicaoMenu);
 
-        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/nextRed.png"))); // NOI18N
-        jMenuItem8.setText("Ordem Topológica");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+        ordemTopologicaMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/nextRed.png"))); // NOI18N
+        ordemTopologicaMenu.setText("Ordem Topológica");
+        ordemTopologicaMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
+                ordemTopologicaMenuActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem8);
+        jMenu2.add(ordemTopologicaMenu);
 
         jMenuBar1.add(jMenu2);
 
@@ -276,7 +279,7 @@ public class Main extends javax.swing.JFrame {
             
     int opcao = file.showOpenDialog(this);
     
-    if(opcao == JFileChooser.APPROVE_OPTION){
+    if(opcao == JFileChooser.APPROVE_OPTION){    
         this.diretorio = file.getSelectedFile().getAbsolutePath();
   
         lista = Utilitarios.leitura(this.diretorio);
@@ -285,6 +288,11 @@ public class Main extends javax.swing.JFrame {
         this.print();
         if(desenho.getIsDigrafo() == true) isDigraph = 1;
         else isDigraph = 0;
+        
+        //menus;
+        this.inicioMenu.setEnabled(true);
+        if(isDigraph == 1) this.programarMenus(true);
+        else this.programarMenus(false);     
     }
     
     }//GEN-LAST:event_loadFileActionPerformed
@@ -324,32 +332,32 @@ public class Main extends javax.swing.JFrame {
         view.repaint();
     }
     
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void buscaEmLarguraMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscaEmLarguraMenuActionPerformed
         String temp = JOptionPane.showInputDialog("Introduza o vértice inicial:");
         int vInicial = Integer.parseInt(temp);
         this.buscaLargura(vInicial);
         
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_buscaEmLarguraMenuActionPerformed
 
-    private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
+    private void inicioMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inicioMenuMouseClicked
         //lista = Utilitarios.leitura(this.diretorio);
         this.desenho = leituraDesenho();
         this.print();
-    }//GEN-LAST:event_jMenu4MouseClicked
+    }//GEN-LAST:event_inicioMenuMouseClicked
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void componentesConexasMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_componentesConexasMenuActionPerformed
         this.componentesConexas();
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_componentesConexasMenuActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    private void arvoreGeradoraMinimaMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arvoreGeradoraMinimaMenuActionPerformed
         this.arvoreGeradoraMinima();
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    }//GEN-LAST:event_arvoreGeradoraMinimaMenuActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+    private void caminhoMinimoEntreVerticesMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caminhoMinimoEntreVerticesMenuActionPerformed
         String temp = JOptionPane.showInputDialog("Introduza o vértice inicial:");
         int vInicial = Integer.parseInt(temp);
         this.caminhoMinimo(vInicial);
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    }//GEN-LAST:event_caminhoMinimoEntreVerticesMenuActionPerformed
 
     private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
         
@@ -364,30 +372,30 @@ public class Main extends javax.swing.JFrame {
         s.setVisible(true);
     }//GEN-LAST:event_jMenu3MouseClicked
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void coloracaoMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_coloracaoMenuActionPerformed
         this.coloracao();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_coloracaoMenuActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void conectividadeMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_conectividadeMenuActionPerformed
         this.conectividade();
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_conectividadeMenuActionPerformed
 
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+    private void transposicaoMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transposicaoMenuActionPerformed
         lista = lista.calcularTransposta();
         desenho = this.leituraDesenho();
         view.cleanImage();
         view.repaint();
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
+    }//GEN-LAST:event_transposicaoMenuActionPerformed
 
-    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+    private void ordemTopologicaMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ordemTopologicaMenuActionPerformed
         String temp = JOptionPane.showInputDialog("Introduza o vértice inicial:");
         int vInicial = Integer.parseInt(temp);
         this.ordemTopologica(vInicial);
-    }//GEN-LAST:event_jMenuItem8ActionPerformed
+    }//GEN-LAST:event_ordemTopologicaMenuActionPerformed
 
-    private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
+    private void inicioMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioMenuActionPerformed
 
-    }//GEN-LAST:event_jMenu4ActionPerformed
+    }//GEN-LAST:event_inicioMenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -423,29 +431,62 @@ public class Main extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    public void programarMenus(boolean isDigrafo){
+        if(isDigrafo){
+            buscaEmLarguraMenu.setEnabled(true);//ambos
+            componentesConexasMenu.setEnabled(false);
+            arvoreGeradoraMinimaMenu.setEnabled(false);
+            caminhoMinimoEntreVerticesMenu.setEnabled(true);//ambos
+            coloracaoMenu.setEnabled(false);
+            conectividadeMenu.setEnabled(true);
+            transposicaoMenu.setEnabled(true);
+            ordemTopologicaMenu.setEnabled(true);//ambos
+        }
+        else{
+            buscaEmLarguraMenu.setEnabled(true);//ambos
+            componentesConexasMenu.setEnabled(true);
+            arvoreGeradoraMinimaMenu.setEnabled(true);
+            caminhoMinimoEntreVerticesMenu.setEnabled(true);//ambos
+            coloracaoMenu.setEnabled(true);
+            conectividadeMenu.setEnabled(false);
+            transposicaoMenu.setEnabled(false);
+            ordemTopologicaMenu.setEnabled(true);//ambos
+        }
+    }
+    
+    public void desabilitarMenus(){
+            buscaEmLarguraMenu.setEnabled(false);//ambos
+            componentesConexasMenu.setEnabled(false);
+            arvoreGeradoraMinimaMenu.setEnabled(false);
+            caminhoMinimoEntreVerticesMenu.setEnabled(false);//ambos
+            coloracaoMenu.setEnabled(false);
+            conectividadeMenu.setEnabled(false);
+            transposicaoMenu.setEnabled(false);
+            ordemTopologicaMenu.setEnabled(false);//ambos
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem arvoreGeradoraMinimaMenu;
+    private javax.swing.JMenuItem buscaEmLarguraMenu;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.JMenuItem caminhoMinimoEntreVerticesMenu;
+    private javax.swing.JMenuItem coloracaoMenu;
+    private javax.swing.JMenuItem componentesConexasMenu;
+    private javax.swing.JMenuItem conectividadeMenu;
+    private javax.swing.JMenu inicioMenu;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem loadFile;
+    private javax.swing.JMenuItem ordemTopologicaMenu;
+    private javax.swing.JMenuItem transposicaoMenu;
     // End of variables declaration//GEN-END:variables
     
     public void ordemTopologica(int raiz){
