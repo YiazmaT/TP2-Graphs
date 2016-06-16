@@ -122,6 +122,25 @@ public class ListaAdjacencia extends Grafo{
         return arestas;
     }
 
+    public ListaAdjacencia calcularTransposta()
+    {
+        ListaAdjacencia transposta = new ListaAdjacencia(numVertices, true);
+        IteratorGrafos iterador;
+        int verticeAdj,valorAdj;
+        for(int i =0;i<numVertices;i++)
+        {
+            iterador = returnIterador(i);
+            while(iterador.hasNext())
+            {
+                valorAdj = iterador.valor();
+                verticeAdj = iterador.next();
+                
+                transposta.inserirAdjacencia(verticeAdj, i, valorAdj);
+            }
+        }
+        return transposta;
+    }
+    
     @Override
     public int getPesoAresta(int nodeA, int nodeB) {
         NodeLista nodeAtual = vertices[nodeA].getProx();

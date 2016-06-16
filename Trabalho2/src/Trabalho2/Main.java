@@ -369,11 +369,14 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-
+        this.conectividade();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-
+        lista = lista.calcularTransposta();
+        desenho = this.leituraDesenho();
+        view.cleanImage();
+        view.repaint();
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
@@ -519,7 +522,7 @@ public class Main extends javax.swing.JFrame {
         busca.buscaProfundidade(0);
         componentes = busca.getComponentes();
         
-        int compStep = 255 / componentes.length;
+        int compStep = 255 / busca.getNumComponentes();
         RainbowScale rbS = new RainbowScale();
         
         for(int i=0;i<componentes.length;i++){
@@ -561,6 +564,24 @@ public class Main extends javax.swing.JFrame {
             nodeB = a.getNodeB();
             
             desenho.setEdgeAsSelected(nodeA, nodeB);
+        }
+        view.cleanImage();
+        view.repaint();
+    }
+
+    private void conectividade() {
+        int componentes[];
+
+        
+        BuscaProfundidade busca = new BuscaProfundidade(lista);
+        busca.conectividade();
+        componentes = busca.getComponentes();
+        
+        int compStep = 255 / busca.getNumComponentes();
+        RainbowScale rbS = new RainbowScale();
+        
+        for(int i=0;i<componentes.length;i++){
+            desenho.getVertex().get(i).setColor(rbS.getColor((componentes[i]-1) * compStep));
         }
         view.cleanImage();
         view.repaint();

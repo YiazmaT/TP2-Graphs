@@ -7,7 +7,9 @@ package Buscas;
 
 import grafos.Grafo;
 import Iterador.IteratorGrafos;
+import grafos.ListaAdjacencia;
 import grafos.Utilitarios;
+import java.util.PriorityQueue;
 import java.util.Stack;
 
 /**
@@ -15,7 +17,7 @@ import java.util.Stack;
  * @author mortz
  */
 public class BuscaProfundidade {
-    private Grafo representacao;
+    private ListaAdjacencia representacao;
     private int cor[];
     private int tempoChegada[];
     private int pai[];
@@ -29,7 +31,7 @@ public class BuscaProfundidade {
     private final static int CINZA = 2;
     private final static int PRETO = 3;
     
-    public BuscaProfundidade(Grafo representacao){
+    public BuscaProfundidade(ListaAdjacencia representacao){
         this.representacao = representacao;
         cor = new int[representacao.getNumVertices()];
         tempoChegada = new int[representacao.getNumVertices()];
@@ -102,8 +104,6 @@ public class BuscaProfundidade {
         return tempo;
     }
     
-    
-    
     public void buscaProfundidade(int raiz){
         componenteAtual = 0;
         int i;
@@ -126,7 +126,62 @@ public class BuscaProfundidade {
         
         
     }
-
     
+    public int getNumComponentes(){
+        return componenteAtual;
+    }
+    
+    public void conectividade(){
+        buscaProfundidade(0);
+        representacao = representacao.calcularTransposta();
+        
+        PriorityQueue<Node> lista = new PriorityQueue<>();
+        for(int i = 0; i < representacao.getNumVertices(); i++)
+        {
+            Node node = new Node(i, tempoFinaliza[i]);
+            lista.add(node);
+        }
+        
+        componenteAtual = 0;
+        int i;
+        int tempo = 0;
+        for(i=0;i<representacao.getNumVertices();i++){
+            cor[i] = BRANCO;
+        }
+        
+        while(!lista.isEmpty())
+        {
+            i = lista.poll().getVertice();
+            if(cor[i] == BRANCO)
+            {
+                componenteAtual = componenteAtual + 1;
+                tempo = visitaBuscaProfundidade(i,tempo);
+                pai[i] = -1;
+            }
+        }
+    }
+
+    private class Node implements Comparable<Node>
+    {
+        private int vertice;
+        private int tempoFinaliza;
+
+        private Node(int vertice, int tempoFinaliza)
+        {
+            this.vertice = vertice;
+            this.tempoFinaliza = tempoFinaliza;
+        }
+        
+        @Override
+        public  int compareTo(Node o)
+        {
+            return (o.tempoFinaliza - this.tempoFinaliza);
+        }
+        
+        public int getVertice()
+        {
+            return this.vertice;
+        }
+    }
     
 }
