@@ -9,6 +9,8 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.geom.Arc2D;
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
 
 /**
  *
@@ -72,7 +74,7 @@ public class Edge {
                     diferenca/75*20,0, 180);
                 break;
                 
-            case 2:
+            case -1:
                 g2.drawArc((int)source.getX(), (int)source.getY()- diferenca/75*10, 
                     diferenca,
                     diferenca/75*20,0, -180);
@@ -82,50 +84,103 @@ public class Edge {
         
     }
     
-    public void desenharSetaArqueada(Graphics2D g2){
-        
-    }
     
     public void drawArrow(Graphics2D g2){
         if (isDirected()) {
 //            drawArrow(g2, new Point((int) source.getX(), (int) source.getY()),
 //                    new Point((int) target.getX(), (int) target.getY()),
 //                    6.0f);
-        if(arqueado == 0){
-            if(!selected){
-                g2.setStroke(new java.awt.BasicStroke(1.0f));    
-                drawArrowNew(g2, new Point((int) source.getX(), (int) source.getY()),
-                        new Point((int) target.getX(), (int) target.getY()),
-                        6, 14);
+            if(arqueado == 0){
+                if(!selected){
+                    g2.setStroke(new java.awt.BasicStroke(1.0f));    
+                    drawArrowNew(g2, new Point((int) source.getX(), (int) source.getY()),
+                            new Point((int) target.getX(), (int) target.getY()),
+                            6, 14);
+                }else{
+                    g2.setStroke(new java.awt.BasicStroke(4.0f));    
+                    drawArrowNew(g2, new Point((int) source.getX(), (int) source.getY()),
+                            new Point((int) target.getX(), (int) target.getY()),
+                            6, 14);
+                }
             }else{
-                g2.setStroke(new java.awt.BasicStroke(4.0f));    
-                drawArrowNew(g2, new Point((int) source.getX(), (int) source.getY()),
-                        new Point((int) target.getX(), (int) target.getY()),
-                        6, 14);
+                drawArrowArqueado(g2);
             }
-            }
-        }if(arqueado == 1){
-            
         }
 
     }
     
-    public void drawArrowArqueado(Graphics2D g2){
-        Equation elipse, circunferencia;
+    public float calculaIntersecX(){
+        float centroEliX = (target.getX() + source.getX())/2;
+        float centroEliY = source.getY();
+        float centroCirX = target.getX();
+        float centroCirY = target.getY();
+        float a,b,h,r;
+        float intersecX,intersecY;
         
-        elipse = new Equation(2);
-        circunferencia = new Equation(2);
-    
-        float centroX = (target.getX() + source.getX())/2;
-        float centroY = source.getY();
-        float a,b;
-        a = (target.getX() - source.getX())/2;
+        a = (target.getX() - centroEliX);
         b = (target.getX()-source.getX())/75*10;
+        h = (centroCirX - centroEliX);
+        r = target.getRay();
         
-        elipse.setEquationFromElipse(centroX, centroY,a,b);
-        circunferencia.setEquationFromCirc(target.getX(), target.getY(), target.getRay());
+        Equation2ndGrau intersection = new Equation2ndGrau(1 - (b*b)/(a*a), -2*h, b*b + h*h - r*r);
+        intersection.calcular();
+   
+        float result1,result2;
+        result1 = intersection.result1;
+        result2 = intersection.result2;
+        
+        //result1 = (float) (r*r - Math.pow(result1 - h, 2));
+        //result2 = (float) (r*r - Math.pow(result2 - h, 2));
+        
+        if((r*r - Math.pow(result1 - h, 2) < 0))return result2;
+        else return result1;
+    }
+    
+    public void drawArrowArqueado(Graphics2D g2){
+        float intersecX,intersecY;
+        
+        intersecX = calculaIntersecX();
+        intersecY = (float) Math.sqrt(target.getRay()*target.getRay() - Math.pow(intersecX -(target.getX() - (target.getX() + source.getX())/2),2));
+    
+        if(arqueado == 1)intersecY*=-1;
         
         
+        
+        intersecY+=target.getY();
+        intersecX+=(target.getX() + source.getX())/2;
+        
+        
+        Point ptoControle = new Point((int)(intersecX + (intersecX - target.getX())),(int)(intersecY + (intersecY - target.getY())));
+//        float r = (float)Math.sqrt(Math.pow(ptoControle.x,2) + Math.pow(ptoControle.y,2));
+//        
+        ptoControle.x = (int) (ptoControle.x - intersecX) ;
+        ptoControle.y = (int) (ptoControle.y - intersecY);
+//        
+        Point setaA = new Point(),setaB = new Point();
+//       
+        float angulo = (float) Math.toRadians(45);
+        setaA.x =  (int) ((ptoControle.x*cos(angulo) - ptoControle.y*sin(angulo)) + intersecX);
+        setaA.y =  (int) ((ptoControle.x*sin(angulo) + ptoControle.y*cos(angulo)) + intersecY);
+//        
+        angulo = (float)Math.toRadians(-45);
+        setaB.x =  (int) (ptoControle.x*cos(angulo) - ptoControle.y*sin(angulo)+intersecX);
+        setaB.y =  (int) (ptoControle.x*sin(angulo) + ptoControle.y*cos(angulo)+intersecY);
+//        
+//        ptoControle.x +=intersecX;
+//        ptoControle.y +=intersecY;
+//        
+//        System.out.println(ptoControle.x);
+//        System.out.println(ptoControle.y);
+//        System.out.println(setaA.x);
+//        System.out.println(setaA.y);
+//        System.out.println();
+//        
+        
+          //g2.fillOval(setaA.x - 3, setaA.y-3, 6, 6);
+          //g2.fillOval(setaB.x - 3, setaB.y-3, 6, 6);
+          //g2.fillOval(ptoControle.x-3, ptoControle.y -3, 6, 6);
+        g2.drawLine(setaA.x, setaA.y, (int)intersecX, (int)intersecY);
+        g2.drawLine(setaB.x, setaB.y, (int)intersecX, (int)intersecY);
     }
     
     public void drawPeso(Graphics2D g2){
@@ -152,9 +207,7 @@ public class Edge {
          g2.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_OVER, 1.0f));
          g2.setColor(Color.BLACK);
         
-         if(arqueado != 0){
-             drawArrowArqueado(g2);
-         }
+  
         
     }
     
@@ -217,5 +270,26 @@ public class Edge {
         this.selected = selected;
     }
     
-    
+    private class Equation2ndGrau{
+        public float a;
+        public float b;
+        public float c;
+        
+        public float result1;
+        public float result2;
+        
+        public Equation2ndGrau(float a,float b,float c){
+            this.a = a;
+            this.b = b;
+            this.c = c;
+        }
+        
+        public void calcular(){
+            float delta = b*b - 4*a*c;
+            delta = (float) Math.sqrt(delta);
+            
+            result1 = (-b + delta)/(2*a);
+            result2 = (-b - delta)/(2*a);
+        }
+    }
 }
