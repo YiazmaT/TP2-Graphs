@@ -67,7 +67,7 @@ public class Edge {
                 break;
                 
             case 1:
-                g2.drawArc((int)source.getX(), (int)source.getY() - diferenca/75*10, 
+                g2.drawArc((int)source.getX(), (int)source.getY()- diferenca/75*10, 
                     diferenca,
                     diferenca/75*20,0, 180);
                 break;
@@ -79,6 +79,10 @@ public class Edge {
                 break;
         }
         
+        
+    }
+    
+    public void desenharSetaArqueada(Graphics2D g2){
         
     }
     
@@ -107,6 +111,20 @@ public class Edge {
     }
     
     public void drawArrowArqueado(Graphics2D g2){
+        Equation elipse, circunferencia;
+        
+        elipse = new Equation(2);
+        circunferencia = new Equation(2);
+    
+        float centroX = (target.getX() + source.getX())/2;
+        float centroY = source.getY();
+        float a,b;
+        a = (target.getX() - source.getX())/2;
+        b = (target.getX()-source.getX())/75*10;
+        
+        elipse.setEquationFromElipse(centroX, centroY,a,b);
+        circunferencia.setEquationFromCirc(target.getX(), target.getY(), target.getRay());
+        
         
     }
     
@@ -134,7 +152,9 @@ public class Edge {
          g2.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_OVER, 1.0f));
          g2.setColor(Color.BLACK);
         
-       
+         if(arqueado != 0){
+             drawArrowArqueado(g2);
+         }
         
     }
     
@@ -196,4 +216,6 @@ public class Edge {
     public void setSelected(Boolean selected){
         this.selected = selected;
     }
+    
+    
 }
