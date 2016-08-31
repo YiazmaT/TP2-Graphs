@@ -151,7 +151,7 @@ public class Main extends javax.swing.JFrame {
         jMenu2.setText("Funções");
 
         buscaEmLarguraMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search2.png"))); // NOI18N
-        buscaEmLarguraMenu.setText("Busca em Largura (ok)");
+        buscaEmLarguraMenu.setText("Busca em Largura");
         buscaEmLarguraMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buscaEmLarguraMenuActionPerformed(evt);
@@ -160,7 +160,7 @@ public class Main extends javax.swing.JFrame {
         jMenu2.add(buscaEmLarguraMenu);
 
         componentesConexasMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/connection.png"))); // NOI18N
-        componentesConexasMenu.setText("Componentes Conexas (ok)");
+        componentesConexasMenu.setText("Componentes Conexas");
         componentesConexasMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 componentesConexasMenuActionPerformed(evt);
@@ -169,7 +169,7 @@ public class Main extends javax.swing.JFrame {
         jMenu2.add(componentesConexasMenu);
 
         arvoreGeradoraMinimaMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tree.png"))); // NOI18N
-        arvoreGeradoraMinimaMenu.setText("Árvore Geradora Mínima (ok)");
+        arvoreGeradoraMinimaMenu.setText("Árvore Geradora Mínima");
         arvoreGeradoraMinimaMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 arvoreGeradoraMinimaMenuActionPerformed(evt);
@@ -178,7 +178,7 @@ public class Main extends javax.swing.JFrame {
         jMenu2.add(arvoreGeradoraMinimaMenu);
 
         caminhoMinimoEntreVerticesMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/line.png"))); // NOI18N
-        caminhoMinimoEntreVerticesMenu.setText("Caminho Mínimo Entre Vértices (ok)");
+        caminhoMinimoEntreVerticesMenu.setText("Caminho Mínimo Entre Vértices");
         caminhoMinimoEntreVerticesMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 caminhoMinimoEntreVerticesMenuActionPerformed(evt);
@@ -187,7 +187,7 @@ public class Main extends javax.swing.JFrame {
         jMenu2.add(caminhoMinimoEntreVerticesMenu);
 
         coloracaoMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/redColorWheel.png"))); // NOI18N
-        coloracaoMenu.setText("Coloração (ok)");
+        coloracaoMenu.setText("Coloração");
         coloracaoMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 coloracaoMenuActionPerformed(evt);
@@ -196,7 +196,7 @@ public class Main extends javax.swing.JFrame {
         jMenu2.add(coloracaoMenu);
 
         conectividadeMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/conectivityRed.png"))); // NOI18N
-        conectividadeMenu.setText("Conectividade (ok)");
+        conectividadeMenu.setText("Conectividade");
         conectividadeMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 conectividadeMenuActionPerformed(evt);
@@ -205,7 +205,7 @@ public class Main extends javax.swing.JFrame {
         jMenu2.add(conectividadeMenu);
 
         transposicaoMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/double-arrowRed.png"))); // NOI18N
-        transposicaoMenu.setText("Transposição (ok)");
+        transposicaoMenu.setText("Transposição");
         transposicaoMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 transposicaoMenuActionPerformed(evt);
@@ -441,7 +441,7 @@ public class Main extends javax.swing.JFrame {
             coloracaoMenu.setEnabled(false);
             conectividadeMenu.setEnabled(true);
             transposicaoMenu.setEnabled(true);
-            ordemTopologicaMenu.setEnabled(true);//ambos
+            ordemTopologicaMenu.setEnabled(true);
         }
         else{
             buscaEmLarguraMenu.setEnabled(true);//ambos
@@ -451,7 +451,7 @@ public class Main extends javax.swing.JFrame {
             coloracaoMenu.setEnabled(true);
             conectividadeMenu.setEnabled(false);
             transposicaoMenu.setEnabled(false);
-            ordemTopologicaMenu.setEnabled(true);//ambos
+            ordemTopologicaMenu.setEnabled(false);
         }
     }
     
