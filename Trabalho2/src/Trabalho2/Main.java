@@ -13,6 +13,7 @@ import ColorScale.RainbowScale;
 import DesenharGrafo.Edge;
 import DesenharGrafo.Graph;
 import DesenharGrafo.Vertex;
+import Iterador.IteratorLista;
 import grafos.Aresta;
 import grafos.Grafo;
 import grafos.ListaAdjacencia;
@@ -239,9 +240,19 @@ public class Main extends javax.swing.JFrame {
         jMenu4.add(jMenuItem1);
 
         jMenuItem2.setText("Aresta de Entrada");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem2);
 
         jMenuItem3.setText("Aresta de Saída");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem3);
 
         jMenuBar1.add(jMenu4);
@@ -431,8 +442,9 @@ public class Main extends javax.swing.JFrame {
         }
         
         ArrayList<Vertex> vertices = desenho.getVertex();
-        //desenho = new Graph(influencia.length, true, true, 150 + maior / 2);
-        desenho.computeCircledPosition(150+maior*4);
+        
+        calcularNovoTamanhoCirc(influencia);
+        
         for(int i = 0; i < influencia.length; i++)
         {
             //vertices.get(i).setRay(12+(int)Math.floor(influencia[i]*1.5));
@@ -446,6 +458,42 @@ public class Main extends javax.swing.JFrame {
         view.repaint();
         
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        String temp = JOptionPane.showInputDialog("Introduza o vértice inicial:");
+        int vInicial = Integer.parseInt(temp);
+        
+        IteratorLista iterador = (IteratorLista) lista.returnIterador(vInicial);
+        desenho.descelecionarEdges();
+        while(iterador.hasNext()){
+            desenho.setEdgeAsSelected(vInicial, iterador.next());
+        }
+        
+        view.cleanImage();
+        view.repaint();
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        String temp = JOptionPane.showInputDialog("Introduza o vértice inicial:");
+        ListaAdjacencia listaInvertida = lista.calcularTransposta();
+        BuscaLargura busca = new BuscaLargura(listaInvertida);
+        
+        int vInicial = Integer.parseInt(temp);
+        int distancia[];
+        
+        busca.buscaLargura(vInicial);
+        distancia = busca.getVetorDistancia();
+        desenho.descelecionarEdges();
+        for(int i=0;i<distancia.length;i++){
+            if(distancia[i] == 1){
+                desenho.setEdgeAsSelected(i, vInicial);
+            }
+        }
+        
+        view.cleanImage();
+        view.repaint();
+        
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -680,6 +728,27 @@ public class Main extends javax.swing.JFrame {
         }
         view.cleanImage();
         view.repaint();
+    }
+
+    private void calcularNovoTamanhoCirc(int[] influencia) {
+        int maior = 0, maior2nd = 0;
+        float base,angulo,novoRaio;
+        
+        for(int i=0;i<influencia.length;i++){
+            if(influencia[i] > maior){
+                maior2nd = maior;
+                maior = influencia[i];
+            }else{
+                if(influencia[i] > maior2nd){
+                    maior2nd = influencia[i];
+                }
+            }
+        }
+        
+        base = (maior+ maior2nd)/2;
+        angulo = (float) Math.toRadians(360/lista.getNumVertices())/2;
+        novoRaio = (float) (base/Math.sin(angulo));
+        if(novoRaio > 150)desenho.computeCircledPosition(150 + (int)novoRaio);
     }
     
     public class ViewPanel extends JPanel {

@@ -95,12 +95,12 @@ public class Edge {
                     g2.setStroke(new java.awt.BasicStroke(1.0f));    
                     drawArrowNew(g2, new Point((int) source.getX(), (int) source.getY()),
                             new Point((int) target.getX(), (int) target.getY()),
-                            6, 14);
+                            6, target.getRay()+2);
                 }else{
                     g2.setStroke(new java.awt.BasicStroke(4.0f));    
                     drawArrowNew(g2, new Point((int) source.getX(), (int) source.getY()),
                             new Point((int) target.getX(), (int) target.getY()),
-                            6, 14);
+                            6, target.getRay()+2);
                 }
             }else{
                 drawArrowArqueado(g2);
