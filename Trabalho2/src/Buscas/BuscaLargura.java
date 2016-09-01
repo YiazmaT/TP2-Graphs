@@ -41,7 +41,9 @@ public class BuscaLargura {
     public int getDistancia(int i){
         return distancia[i];
     }
-    
+    public int[] getVetorDistancia(){
+        return distancia;
+    }
     //Retorna uma string que mostra o caminho do vertice raiz da busca em  
     // largura até o vertice i
     //pode ser usado para pegar o caminho entra um vertice U e outro vertice V

@@ -5,6 +5,7 @@
  */
 package Trabalho2;
 
+import Apresentação.Influencia;
 import Buscas.BuscaLargura;
 import Buscas.BuscaProfundidade;
 import CaminhoMinimo.Dijkstra;
@@ -95,6 +96,10 @@ public class Main extends javax.swing.JFrame {
         conectividadeMenu = new javax.swing.JMenuItem();
         transposicaoMenu = new javax.swing.JMenuItem();
         ordemTopologicaMenu = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
 
         jMenu5.setText("File");
@@ -105,7 +110,6 @@ public class Main extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Trabalho Prático de Grafos II");
-        setResizable(false);
         addWindowStateListener(new java.awt.event.WindowStateListener() {
             public void windowStateChanged(java.awt.event.WindowEvent evt) {
                 formWindowStateChanged(evt);
@@ -224,6 +228,24 @@ public class Main extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu4.setText("Apresentação");
+
+        jMenuItem1.setText("Calcular Influência");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem1);
+
+        jMenuItem2.setText("Aresta de Entrada");
+        jMenu4.add(jMenuItem2);
+
+        jMenuItem3.setText("Aresta de Saída");
+        jMenu4.add(jMenuItem3);
+
+        jMenuBar1.add(jMenu4);
+
         jMenu3.setText("Sobre");
         jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -247,7 +269,7 @@ public class Main extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
         );
 
         pack();
@@ -299,7 +321,7 @@ public class Main extends javax.swing.JFrame {
 
     private Graph leituraDesenho(){
        Graph grafoDesenho;
-       grafoDesenho = new Graph(lista.getNumVertices(),lista.isOrientado(),true);
+       grafoDesenho = new Graph(lista.getNumVertices(),lista.isOrientado(),true,150);
        PriorityQueue<Aresta> arestas = lista.getArestas();
        
        for(Aresta a : arestas){
@@ -397,6 +419,34 @@ public class Main extends javax.swing.JFrame {
 
     }//GEN-LAST:event_inicioMenuActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    //here
+        Influencia inf = new Influencia();
+        int [] influencia = inf.calcularInfluencia(lista);
+        int maior = 0;
+        
+        for(int i = 0; i < influencia.length; i++)
+        {
+            if(influencia[i] > maior) maior = influencia[i];
+        }
+        
+        ArrayList<Vertex> vertices = desenho.getVertex();
+        //desenho = new Graph(influencia.length, true, true, 150 + maior / 2);
+        desenho.computeCircledPosition(150+maior*4);
+        for(int i = 0; i < influencia.length; i++)
+        {
+            //vertices.get(i).setRay(12+(int)Math.floor(influencia[i]*1.5));
+            vertices.get(i).setRay(12+(int)Math.floor(influencia[i]*2));
+            influencia[i] = influencia[i] * 255 / maior;
+            vertices.get(i).setColor(new Color(influencia[i], 0, 255 - influencia[i]));
+            
+        }
+        
+        view.cleanImage();
+        view.repaint();
+        
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -479,10 +529,14 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem loadFile;
     private javax.swing.JMenuItem ordemTopologicaMenu;
@@ -518,7 +572,7 @@ public class Main extends javax.swing.JFrame {
     }
     
     public void criarDesenhoOrdem(Stack<Integer> ordem, Grafo grafo){
-        Graph novoDesenho = new Graph(grafo.getNumVertices(), true,false);
+        Graph novoDesenho = new Graph(grafo.getNumVertices(), true,false,150);
         float step = 75;
         Vertex origem, destino;
         PriorityQueue<Aresta> arestas = grafo.getArestas();

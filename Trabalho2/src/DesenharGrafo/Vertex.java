@@ -17,6 +17,15 @@ public class Vertex {
     private Boolean selected = true;
     private Color color = Color.RED;
     private int ID;
+    private int influencia;
+
+    public int getInfluencia() {
+        return influencia;
+    }
+
+    public void setInfluencia(int influencia) {
+        this.influencia = influencia;
+    }
 
     public int getID() {
         return ID;
