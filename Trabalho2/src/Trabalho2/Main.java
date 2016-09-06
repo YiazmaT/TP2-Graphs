@@ -140,7 +140,8 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        jMenuItem4.setText("Resetar ");
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/refresh.png"))); // NOI18N
+        jMenuItem4.setText("Resetar Imagem");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);
@@ -148,7 +149,8 @@ public class Main extends javax.swing.JFrame {
         });
         inicioMenu.add(jMenuItem4);
 
-        jMenuItem5.setText("Salvar imagem");
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/save.png"))); // NOI18N
+        jMenuItem5.setText("Salvar Imagem");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem5ActionPerformed(evt);
@@ -254,6 +256,7 @@ public class Main extends javax.swing.JFrame {
 
         jMenu4.setText("Apresentação");
 
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/line-chart.png"))); // NOI18N
         jMenuItem1.setText("Calcular Influência");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -262,6 +265,7 @@ public class Main extends javax.swing.JFrame {
         });
         jMenu4.add(jMenuItem1);
 
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/download.png"))); // NOI18N
         jMenuItem2.setText("Aresta de Entrada");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -270,6 +274,7 @@ public class Main extends javax.swing.JFrame {
         });
         jMenu4.add(jMenuItem2);
 
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/upload.png"))); // NOI18N
         jMenuItem3.setText("Aresta de Saída");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

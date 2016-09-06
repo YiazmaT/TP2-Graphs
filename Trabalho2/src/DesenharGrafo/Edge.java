@@ -11,7 +11,7 @@ import java.awt.Point;
 import java.awt.geom.Arc2D;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
-import javax.vecmath.Point2f;
+
 
 /**
  *
@@ -151,10 +151,10 @@ public class Edge {
         intersecX+=(target.getX() + source.getX())/2;
         
         
-        Point2f ptoControle = new Point2f((intersecX + (intersecX - target.getX())),(intersecY + (intersecY - target.getY())));
+        Point ptoControle = new Point((int)(intersecX + (intersecX - target.getX())),(int)(intersecY + (intersecY - target.getY())));
         
-        ptoControle.x = (ptoControle.x - intersecX) ;
-        ptoControle.y =  (ptoControle.y - intersecY);
+        ptoControle.x = (int)(ptoControle.x - intersecX) ;
+        ptoControle.y =  (int)(ptoControle.y - intersecY);
         //float r = (float)Math.sqrt(Math.pow(ptoControle.x,2) + Math.pow(ptoControle.y,2));
         //ptoControle.x = ptoControle.x/r*12;
         //ptoControle.y = ptoControle.y/r*12;
