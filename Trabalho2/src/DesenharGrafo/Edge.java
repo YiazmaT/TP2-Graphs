@@ -11,6 +11,7 @@ import java.awt.Point;
 import java.awt.geom.Arc2D;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
+import javax.vecmath.Point2f;
 
 /**
  *
@@ -150,35 +151,24 @@ public class Edge {
         intersecX+=(target.getX() + source.getX())/2;
         
         
-        Point ptoControle = new Point((int)(intersecX + (intersecX - target.getX())),(int)(intersecY + (intersecY - target.getY())));
-//        float r = (float)Math.sqrt(Math.pow(ptoControle.x,2) + Math.pow(ptoControle.y,2));
-//        
-        ptoControle.x = (int) (ptoControle.x - intersecX) ;
-        ptoControle.y = (int) (ptoControle.y - intersecY);
-//        
+        Point2f ptoControle = new Point2f((intersecX + (intersecX - target.getX())),(intersecY + (intersecY - target.getY())));
+        
+        ptoControle.x = (ptoControle.x - intersecX) ;
+        ptoControle.y =  (ptoControle.y - intersecY);
+        //float r = (float)Math.sqrt(Math.pow(ptoControle.x,2) + Math.pow(ptoControle.y,2));
+        //ptoControle.x = ptoControle.x/r*12;
+        //ptoControle.y = ptoControle.y/r*12;
+        
+        
         Point setaA = new Point(),setaB = new Point();
-//       
+       
         float angulo = (float) Math.toRadians(45);
         setaA.x =  (int) ((ptoControle.x*cos(angulo) - ptoControle.y*sin(angulo)) + intersecX);
         setaA.y =  (int) ((ptoControle.x*sin(angulo) + ptoControle.y*cos(angulo)) + intersecY);
-//        
+        
         angulo = (float)Math.toRadians(-45);
         setaB.x =  (int) (ptoControle.x*cos(angulo) - ptoControle.y*sin(angulo)+intersecX);
         setaB.y =  (int) (ptoControle.x*sin(angulo) + ptoControle.y*cos(angulo)+intersecY);
-//        
-//        ptoControle.x +=intersecX;
-//        ptoControle.y +=intersecY;
-//        
-//        System.out.println(ptoControle.x);
-//        System.out.println(ptoControle.y);
-//        System.out.println(setaA.x);
-//        System.out.println(setaA.y);
-//        System.out.println();
-//        
-        
-          //g2.fillOval(setaA.x - 3, setaA.y-3, 6, 6);
-          //g2.fillOval(setaB.x - 3, setaB.y-3, 6, 6);
-          //g2.fillOval(ptoControle.x-3, ptoControle.y -3, 6, 6);
         g2.drawLine(setaA.x, setaA.y, (int)intersecX, (int)intersecY);
         g2.drawLine(setaB.x, setaB.y, (int)intersecX, (int)intersecY);
     }

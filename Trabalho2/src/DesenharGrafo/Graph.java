@@ -109,8 +109,8 @@ public class Graph {
                 }
             }
 
-            int w = (int) (maxX + (this.vertex.get(0).getRay() * 5)) + 350;
-            int h = (int) (maxY + (this.vertex.get(0).getRay() * 5));
+            int w = (int) Math.max((maxX + (this.vertex.get(0).getRay() * 5)) + 350, 800);
+            int h = (int) Math.max(maxY + (this.vertex.get(0).getRay() * 5),600);
 
             return new java.awt.Dimension(w, h);
         } else {

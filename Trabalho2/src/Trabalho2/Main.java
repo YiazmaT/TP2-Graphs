@@ -26,9 +26,13 @@ import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -86,6 +90,8 @@ public class Main extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane(this.view);
         jMenuBar1 = new javax.swing.JMenuBar();
         inicioMenu = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         loadFile = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
@@ -133,6 +139,23 @@ public class Main extends javax.swing.JFrame {
                 inicioMenuActionPerformed(evt);
             }
         });
+
+        jMenuItem4.setText("Resetar ");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        inicioMenu.add(jMenuItem4);
+
+        jMenuItem5.setText("Salvar imagem");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        inicioMenu.add(jMenuItem5);
+
         jMenuBar1.add(inicioMenu);
 
         jMenu1.setText("Arquivo");
@@ -374,8 +397,7 @@ public class Main extends javax.swing.JFrame {
 
     private void inicioMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inicioMenuMouseClicked
         //lista = Utilitarios.leitura(this.diretorio);
-        this.desenho = leituraDesenho();
-        this.print();
+        
     }//GEN-LAST:event_inicioMenuMouseClicked
 
     private void componentesConexasMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_componentesConexasMenuActionPerformed
@@ -495,6 +517,29 @@ public class Main extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        this.desenho = leituraDesenho();
+        this.print();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        JFileChooser dialog = new JFileChooser();
+        dialog.setMultiSelectionEnabled(false);
+        dialog.setDialogTitle("Save file");
+        dialog.setCurrentDirectory(new File(""));
+        int result = dialog.showDialog(this, "Salvar");
+        if (result == JFileChooser.APPROVE_OPTION) {
+            try {
+                
+                String filename = dialog.getSelectedFile().getAbsolutePath();
+                if(!filename.endsWith(".png"))filename += ".png";
+                this.view.saveToPngImageFile(filename);
+            } catch (IOException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -585,6 +630,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem loadFile;
     private javax.swing.JMenuItem ordemTopologicaMenu;
@@ -839,8 +886,8 @@ public class Main extends javax.swing.JFrame {
             }
 
             Dimension d = this.getSize();
-            d.width = (int) max_x + zero;
-            d.height = (int) max_y + zero;
+            d.width = (int) Math.min(max_x + zero, 800);
+            d.height = (int) Math.min(max_y + zero, 600);
             this.setSize(d);
             this.setPreferredSize(d);
         }
@@ -897,6 +944,14 @@ public class Main extends javax.swing.JFrame {
         private ArrayList<Vertex> selectedVertices;
         //The image which will be drawn as a graph
         private BufferedImage imageBuffer;
+
+        private void saveToPngImageFile(String filename) throws IOException {
+        try {
+                //this.paint(this.imageBuffer.getGraphics());
+                ImageIO.write(this.imageBuffer, "png", new File(filename));
+            } catch (IOException ex) {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+            }}
     }
 }
 
